@@ -1,6 +1,8 @@
 package com.example;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,9 +26,13 @@ public class TournamentInfo_page {
   private Stage stage;
   private Scene scene;
   private Parent root; 
+  String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
     @FXML
     private TextField availableSeatsField;
+
+    @FXML
+    private Button backToHome;
 
     @FXML
     private ComboBox<String> comBox;
@@ -61,24 +67,40 @@ public class TournamentInfo_page {
       comBox.getItems().addAll(tournamentsTypes);
     }
 
-    public void createButton(ActionEvent event) throws IOException{
+    public void saveToutnament(String path, Tournament tournament){
+      try{
+        FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + path + ".dat", true);
+        ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
+        output.writeObject(tournament);
+        output.close();
+        }
+        catch(IOException e){
+          System.out.println(e.getMessage());
+        }
+    }
 
+    @FXML
+    public void createButton(ActionEvent event) throws IOException{
       String name = tournamentNameField.getText();
       String sport = tournamentSportField.getText();
-      String availableSeats = availableSeatsField.getText();
+      String startDate = startDateField.getText();
+      String endDate = endDateField.getText();
       boolean teamBased = teamBasedButton.isSelected() ? true : false;
-      
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("homePage.fxml"));
-      AnchorPane root = loader.load();
-      Home_page home_page = loader.getController();
-      HBox hbox = (HBox) loader.getNamespace().get("Hbox"); // Get the HBox from the FXML file
-      Button button = home_page.addToHbox(name, sport, teamBased, Integer.parseInt(availableSeats)); // Create a new button
-      hbox.setMargin(button, new Insets(20, 10, 10, 10));
-      hbox.getChildren().add(button); // Add the button to the HBox
+      String teamCapacity = teamCapacityField.getText();
+      Enrollment enrollment = new Enrollment(Integer.parseInt(availableSeatsField.getText()), 0);
+      TournamentProgress tournamentProgress = new TournamentProgress();
+      String availableSeats = availableSeatsField.getText();
+      Tournament tournament = new Tournament(name, sport, startDate, endDate, "Elimination", teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
 
+      saveToutnament("tournaments", tournament);
+    }
+
+    @FXML
+    public void backToHome(ActionEvent event) throws IOException{
+      Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
       stage = (Stage)((Node)event.getSource()).getScene().getWindow();
       scene = new Scene(root);
       stage.setScene(scene);
-      stage.show();
+      stage.show(); 
     }
 }

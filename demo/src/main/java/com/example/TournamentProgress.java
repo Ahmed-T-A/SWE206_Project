@@ -1,5 +1,7 @@
 package com.example;
 
-public class TournamentProgress {
+import java.io.Serializable;
+
+public class TournamentProgress implements Serializable {
   
 }

@@ -1,13 +1,15 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Tournament {
+public class Tournament implements Serializable {
   //-----------------
   private String name;
   private String sport;
   private String startDate;
   private String endDate;
+  private String tournamentType;
   private boolean teamBased;
   private boolean status; // true for open, False for close.
   private int teamCapacity;
@@ -16,10 +18,11 @@ public abstract class Tournament {
   private Enrollment enrollment;
   private TournamentProgress progress;
   //-----------------
-  public Tournament(String name, String startDate, String endDate, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
+  public Tournament(String name, String startDate, String endDate, String tournamntType, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
     this.name = name;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.tournamentType = tournamntType;
     this.teamBased = teamBased;
     this.teamCapacity = teamCapacity;
     this.enrollment = enrollment;
@@ -30,10 +33,11 @@ public abstract class Tournament {
     this.rounds = new ArrayList<>();
   }
 
-  public Tournament(String name, String sport, String startDate, String endDate, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
+  public Tournament(String name, String sport, String startDate, String endDate, String tournamentType, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
     this.name = name;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.tournamentType = tournamentType;
     this.teamBased = teamBased;
     this.teamCapacity = teamCapacity;
     this.enrollment = enrollment;
@@ -48,12 +52,16 @@ public abstract class Tournament {
 
   public void drop(Object a){}
 
-  public abstract void generateTable();
+  public void generateTable(){}
 
   public void addToArchive(){}
 
   public String getName() {
     return name;
+  }
+
+  public String getType(){
+    return tournamentType;
   }
 
   public String getSport() {
@@ -112,6 +120,10 @@ public abstract class Tournament {
     this.rounds.add(a);;
   }
 
+  public Enrollment getEnrollment(){
+    return enrollment;
+  }
+
   public String getEnrollmentStatistics() {
     return enrollment.toString();
   }
@@ -127,4 +139,11 @@ public abstract class Tournament {
   public void setProgress(TournamentProgress progress) {
     this.progress = progress;
   }
+
+  @Override
+  public String toString() {
+    return "Tournament [name=" + name + ", sport=" + sport + ", startDate=" + startDate + ", endDate=" + endDate
+        + ", teamBased=" + teamBased + ", status=" + status + ", teamCapacity=" + teamCapacity + ", acceptedMembers="
+        + acceptedMembers + ", rounds=" + rounds + ", enrollment=" + enrollment + ", progress=" + progress + "]";
+  }  
 }

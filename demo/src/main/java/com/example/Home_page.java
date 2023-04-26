@@ -1,6 +1,10 @@
 package com.example;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +30,9 @@ public class Home_page extends AnchorPane{
 
   @FXML
   public HBox Hbox;
+
+  @FXML
+  private Button loadTournamentButton;
 
   @FXML
   private ScrollPane scrollPane;
@@ -54,17 +61,55 @@ public class Home_page extends AnchorPane{
   }
 
   @FXML
-  private void logoutButton() throws IOException {
-    App.setRoot("login");
+  private void logoutButton(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show(); 
+  }
+
+  public void readTourFile(File file){
+    try{
+      FileInputStream fileInput = new FileInputStream(file);
+      ObjectInputStream input = new ObjectInputStream(fileInput);
+      Tournament tournament = (Tournament) input.readObject();
+      while(tournament != null){
+        Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
+        button.setOnAction( e -> {
+          try{
+            Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
+            stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show(); 
+          }
+          catch(IOException em){
+            System.out.println(em.getMessage());
+          }
+        });
+        Hbox.setMargin(button, new Insets(20, 10, 10, 10));
+        Hbox.getChildren().add(button);
+        ObjectInputStream input2 = new ObjectInputStream(fileInput);
+        tournament = (Tournament) input2.readObject();
+      }
+      input.close();
+    }
+    catch(IOException em){
+      System.out.println(em.getMessage());
+    }
+    catch (ClassNotFoundException es){
+      System.out.println(es.getMessage());
+    }
   }
 
   @FXML
-  public void tourButton() throws IOException {
-   
+  public void readTournamentsFile(ActionEvent event) throws IOException{
+    File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
+    readTourFile(file);
   }
 
   public Button addToHbox(String name, String sport, boolean teamBased, int availableSeats){
-    Hbox = new HBox();
     String teamBased2 = teamBased == true ? "team based" : "indevidual based"; 
     String title = name + "\n" + sport + "\n" + teamBased2 + "\n available seats: \n" + availableSeats;
     Button n = new Button(title);
@@ -72,8 +117,11 @@ public class Home_page extends AnchorPane{
     n.setPrefHeight(72); 
     n.setPrefWidth(110); 
     return n;
-    // Hbox.setMargin(n, new Insets(20, 10, 10, 10));
-    // Hbox.getChildren().add(n);
+  }
+
+  public void addToHBox(Button a){
+    Hbox.setMargin(a, new Insets(20, 10, 10, 10));
+    Hbox.getChildren().add(a);
   }
 
   @FXML

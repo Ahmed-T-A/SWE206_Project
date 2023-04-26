@@ -1,8 +1,9 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Enrollment {
+public class Enrollment implements Serializable {
   //-----------------
   private int seats;
   private int registeredSeats;
