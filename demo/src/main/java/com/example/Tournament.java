@@ -17,8 +17,9 @@ public class Tournament implements Serializable {
   private ArrayList<Round> rounds;
   private Enrollment enrollment;
   private TournamentProgress progress;
+  private boolean archived;
   //-----------------
-  public Tournament(String name, String startDate, String endDate, String tournamntType, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
+  public Tournament(String name, String startDate, String endDate, String tournamntType, boolean status, boolean archived, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
     this.name = name;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -28,12 +29,13 @@ public class Tournament implements Serializable {
     this.enrollment = enrollment;
     this.progress = progress;
     this.sport = null;
-    this.status = true;
+    this.status = status;
     this.acceptedMembers = new ArrayList<>();
     this.rounds = new ArrayList<>();
+    this.archived = archived;
   }
 
-  public Tournament(String name, String sport, String startDate, String endDate, String tournamentType, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
+  public Tournament(String name, String sport, String startDate, String endDate, String tournamentType, boolean status, boolean archived, boolean teamBased, int teamCapacity, Enrollment enrollment, TournamentProgress progress){
     this.name = name;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -43,9 +45,10 @@ public class Tournament implements Serializable {
     this.enrollment = enrollment;
     this.progress = progress;
     this.sport = sport;
-    this.status = true;
+    this.status = status;
     this.acceptedMembers = new ArrayList<>();
     this.rounds = new ArrayList<>();
+    this.archived = archived;
   }
   //-----------------
   public void request(Object a){}
@@ -66,6 +69,10 @@ public class Tournament implements Serializable {
 
   public String getSport() {
     return sport;
+  }
+
+  public boolean isArchived(){
+    return archived;
   }
 
   public String getStartDate() {

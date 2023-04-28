@@ -10,10 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -27,9 +29,17 @@ public class Home_page extends AnchorPane{
   private Stage stage;
   private Scene scene;
   private Parent root; 
+  private Tournament tournament = new Tournament("ah", "d", "g", "df", "g", true, true, false, 4, new Enrollment(0, 0), new TournamentProgress());
+  private Tournament_page tournament_page = new Tournament_page();
+  
+  @FXML
+  private VBox archevedTournaments;
 
   @FXML
-  public HBox Hbox;
+  private VBox tournamentsInProgress;
+
+  @FXML
+  private VBox availableTournaments;
 
   @FXML
   private Button loadTournamentButton;
@@ -52,7 +62,9 @@ public class Home_page extends AnchorPane{
   @FXML
   private Button tourButton;  
 
-  boolean isLeft = true;
+  @FXML
+  private Button showStudentProfileButton;
+
   //------------------
 
   @FXML
@@ -73,11 +85,12 @@ public class Home_page extends AnchorPane{
     try{
       FileInputStream fileInput = new FileInputStream(file);
       ObjectInputStream input = new ObjectInputStream(fileInput);
-      Tournament tournament = (Tournament) input.readObject();
+      tournament = (Tournament) input.readObject();
       while(tournament != null){
         Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
         button.setOnAction( e -> {
           try{
+            tournament_page.setTournamen(tournament);
             Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
             stage = (Stage)((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -88,8 +101,18 @@ public class Home_page extends AnchorPane{
             System.out.println(em.getMessage());
           }
         });
-        Hbox.setMargin(button, new Insets(20, 10, 10, 10));
-        Hbox.getChildren().add(button);
+        if (tournament.getStatus() == true){
+          availableTournaments.setMargin(button, new Insets(20, 10, 10, 10));
+          availableTournaments.getChildren().add(button);
+        }
+        else if (tournament.getStatus() == false && tournament.isArchived() == true){
+          archevedTournaments.setMargin(button, new Insets(20, 10, 10, 10));
+          archevedTournaments.getChildren().add(button);
+        }
+        else{
+          tournamentsInProgress.setMargin(button, new Insets(20, 10, 10, 10));
+          tournamentsInProgress.getChildren().add(button);
+        }
         ObjectInputStream input2 = new ObjectInputStream(fileInput);
         tournament = (Tournament) input2.readObject();
       }
@@ -119,14 +142,28 @@ public class Home_page extends AnchorPane{
     return n;
   }
 
-  public void addToHBox(Button a){
-    Hbox.setMargin(a, new Insets(20, 10, 10, 10));
-    Hbox.getChildren().add(a);
+  public void addToHBox(Button a, VBox b){
+    b.setMargin(a, new Insets(10, 10, 10, 10));   
+    b.setAlignment(Pos.CENTER); 
+    b.getChildren().add(a);
+  }
+
+  public Tournament getTournament(){
+    return tournament;
   }
 
   @FXML
   private void addingTournamentButton(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("tournamentInfoPage.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show(); 
+  }
+
+  @FXML
+  private void showStudentProfileButton(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("showStudentProfilePage.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);

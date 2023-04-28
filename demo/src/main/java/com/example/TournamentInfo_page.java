@@ -32,6 +32,12 @@ public class TournamentInfo_page {
     private TextField availableSeatsField;
 
     @FXML
+    private CheckBox archivedCheck;
+
+    @FXML
+    private CheckBox statusCheck;
+
+    @FXML
     private Button backToHome;
 
     @FXML
@@ -67,16 +73,16 @@ public class TournamentInfo_page {
       comBox.getItems().addAll(tournamentsTypes);
     }
 
-    public void saveToutnament(String path, Tournament tournament){
+    public void saveToutnament(String fileName, Tournament tournament){
       try{
-        FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + path + ".dat", true);
+        FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + fileName + ".dat", true);
         ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
         output.writeObject(tournament);
         output.close();
-        }
-        catch(IOException e){
-          System.out.println(e.getMessage());
-        }
+      }
+      catch(IOException e){
+        System.out.println(e.getMessage());
+      }
     }
 
     @FXML
@@ -86,11 +92,13 @@ public class TournamentInfo_page {
       String startDate = startDateField.getText();
       String endDate = endDateField.getText();
       boolean teamBased = teamBasedButton.isSelected() ? true : false;
+      boolean status = statusCheck.isSelected() ? true : false;
+      boolean archived = archivedCheck.isSelected() ? true : false;
       String teamCapacity = teamCapacityField.getText();
       Enrollment enrollment = new Enrollment(Integer.parseInt(availableSeatsField.getText()), 0);
       TournamentProgress tournamentProgress = new TournamentProgress();
       String availableSeats = availableSeatsField.getText();
-      Tournament tournament = new Tournament(name, sport, startDate, endDate, "Elimination", teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
+      Tournament tournament = new Tournament(name, sport, startDate, endDate, "Elimination", status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
 
       saveToutnament("tournaments", tournament);
     }
