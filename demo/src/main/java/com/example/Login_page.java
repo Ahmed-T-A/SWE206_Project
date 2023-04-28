@@ -60,13 +60,13 @@ public class Login_page {
     void loginUser(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if (matchUsernameAndPassword(username, password)){
+        // if (matchUsernameAndPassword(username, password)){
             Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show(); 
-        }
+        // }
     }
 
     public boolean matchUsernameAndPassword(String username, String password){
