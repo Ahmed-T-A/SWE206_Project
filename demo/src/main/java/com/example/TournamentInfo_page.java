@@ -42,6 +42,8 @@ public class TournamentInfo_page {
 
     @FXML
     private ComboBox<String> comBox;
+
+    String tournamentType;
     
     @FXML
     private Button createButton;
@@ -68,9 +70,15 @@ public class TournamentInfo_page {
     private AnchorPane welcomeScene;
 
     @FXML
-    void comboItems() {
-      String[] tournamentsTypes = {"Elimination", "Round Robin"};
-      comBox.getItems().addAll(tournamentsTypes);
+    public void initialize() {
+      comBox.getItems().removeAll(comBox.getItems());
+      comBox.getItems().addAll("Elimination", "Round Robin");
+      comBox.getSelectionModel().select("Select Tournament");
+    }
+
+    @FXML
+    void comboItems(ActionEvent event) throws IOException {
+      tournamentType = comBox.getValue();
     }
 
     public void saveToutnament(String fileName, Tournament tournament){
@@ -91,6 +99,7 @@ public class TournamentInfo_page {
       String sport = tournamentSportField.getText();
       String startDate = startDateField.getText();
       String endDate = endDateField.getText();
+      String tourType = tournamentType;
       boolean teamBased = teamBasedButton.isSelected() ? true : false;
       boolean status = statusCheck.isSelected() ? true : false;
       boolean archived = archivedCheck.isSelected() ? true : false;
@@ -98,7 +107,7 @@ public class TournamentInfo_page {
       Enrollment enrollment = new Enrollment(Integer.parseInt(availableSeatsField.getText()), 0);
       TournamentProgress tournamentProgress = new TournamentProgress();
       String availableSeats = availableSeatsField.getText();
-      Tournament tournament = new Tournament(name, sport, startDate, endDate, "Elimination", status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
+      Tournament tournament = new Tournament(name, sport, startDate, endDate, tourType, status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
 
       saveToutnament("tournaments", tournament);
     }

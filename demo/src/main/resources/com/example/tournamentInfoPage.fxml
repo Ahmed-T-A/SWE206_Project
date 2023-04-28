@@ -17,6 +17,11 @@
                   <Font name="AGA Arabesque Desktop" size="14.0" />
                </font>
             </Button>
+            <Label fx:id="header" alignment="CENTER" contentDisplay="CENTER" layoutX="201.0" layoutY="24.0" text="Create Tournament" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="22.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
       <Label fx:id="tournamentName" layoutX="23.0" layoutY="89.0" text="Tournament Name">
          <font>
@@ -64,7 +69,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comBox" layoutX="208.0" layoutY="241.0" prefWidth="150.0" promptText="tournament Type" visibleRowCount="2" />
+      <ComboBox fx:id="comBox" editable="true" layoutX="208.0" layoutY="241.0" onAction="#comboItems" prefWidth="150.0" promptText="tournament Type" visibleRowCount="2" />
       <Label fx:id="availableSeats" layoutX="416.0" layoutY="89.0" text="Available seats:">
          <font>
             <Font size="18.0" />

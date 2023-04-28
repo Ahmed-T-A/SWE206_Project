@@ -3,8 +3,10 @@ package com.example;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +32,8 @@ public class Home_page extends AnchorPane{
   private Scene scene;
   private Parent root; 
   private Tournament tournament = new Tournament("ah", "d", "g", "df", "g", true, true, false, 4, new Enrollment(0, 0), new TournamentProgress());
-  private Tournament_page tournament_page = new Tournament_page();
+  String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
+
   
   @FXML
   private VBox archevedTournaments;
@@ -90,7 +93,6 @@ public class Home_page extends AnchorPane{
         Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
         button.setOnAction( e -> {
           try{
-            tournament_page.setTournamen(tournament);
             Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
             stage = (Stage)((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -106,10 +108,12 @@ public class Home_page extends AnchorPane{
           availableTournaments.getChildren().add(button);
         }
         else if (tournament.getStatus() == false && tournament.isArchived() == true){
+          button.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #d0909c; -fx-text-alignment: center;}");  
           archevedTournaments.setMargin(button, new Insets(20, 10, 10, 10));
           archevedTournaments.getChildren().add(button);
         }
         else{
+          button.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #99cf91; -fx-text-alignment: center;}");  
           tournamentsInProgress.setMargin(button, new Insets(20, 10, 10, 10));
           tournamentsInProgress.getChildren().add(button);
         }
@@ -136,7 +140,7 @@ public class Home_page extends AnchorPane{
     String teamBased2 = teamBased == true ? "team based" : "indevidual based"; 
     String title = name + "\n" + sport + "\n" + teamBased2 + "\n available seats: \n" + availableSeats;
     Button n = new Button(title);
-    n.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #c1beff; -fx-text-alignment: center; -fx-effect: innershadow(gaussian, #666666, 10, 0.5, 0, 0);}");  
+    n.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #c1beff; -fx-text-alignment: center;}");  
     n.setPrefHeight(72); 
     n.setPrefWidth(110); 
     return n;
@@ -168,5 +172,17 @@ public class Home_page extends AnchorPane{
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show(); 
+  }
+
+  public void saveToutnament(String fileName, Tournament tournament){
+    try{
+      FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + fileName + ".dat", true);
+      ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
+      output.writeObject(tournament);
+      output.close();
+    }
+    catch(IOException e){
+      System.out.println(e.getMessage());
+    }
   }
 }

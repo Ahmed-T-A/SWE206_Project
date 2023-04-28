@@ -12,20 +12,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Tournament_page {
-
-  Tournament tournament = new Tournament("ah", "d", "g", "df", "g", true, true, false, 4, new Enrollment(0, 0), new TournamentProgress());
-
-  // Home_page home_page = new Home_page();
-
   private Stage stage;
   private Scene scene;
   private Parent root; 
 
   @FXML
   private Label teamCapacity;
+
+  @FXML
+  private Button editButton;
+
+  @FXML
+  private Label header;
 
   @FXML
   private Button homeButton;
@@ -35,9 +37,6 @@ public class Tournament_page {
 
   @FXML
   private Label tournamentName;
-
-  @FXML
-  private Label tournamentProgress;
 
   @FXML
   private Label tournamentSport;
@@ -51,54 +50,46 @@ public class Tournament_page {
   @FXML
   private Label tournamentType;
 
-  public Tournament_page(){
-    // tournament = home_page.getTournament();
-    
-  }
+  @FXML
+  private TextField tournamentNameField;
 
-  public void setTournamen(Tournament a){
-    tournament = a;
-  }
+  @FXML
+  private Button tourProgressButton;
 
-  public void x (ActionEvent event) throws IOException {
-    tournamentName.setText(tournament.getName());
-    tournamentSport.setText(tournament.getSport());
-    tournamentStartDate.setText(tournament.getStartDate());
-    tournamentEndDate.setText(tournament.getEndDate());
-    // tournamentType.setText(tournament.getType()); 
-    tournamentType.setText("Elimination");
-    teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
-    tournamentStatus.setText(Boolean.toString(tournament.getStatus()));
-    tournamentProgress.setText("50%");
-  }
 
-  // public void getTournament1(ActionEvent event) throws IOException {
-  //   File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
-  //   readTourFile(file);
-  // }
-  // public void readTourFile(File file){
-  //   try{
-  //     FileInputStream fileInput = new FileInputStream(file);
-  //     ObjectInputStream input = new ObjectInputStream(fileInput);
-  //     Tournament tournament = (Tournament) input.readObject();
-  //     tournamentName.setText(tournament.getName());
-  //     tournamentSport.setText(tournament.getSport());
-  //     tournamentStartDate.setText(tournament.getStartDate());
-  //     tournamentEndDate.setText(tournament.getEndDate());
-  //     // tournamentType.setText(tournament.getType()); 
-  //     tournamentType.setText("Elimination");
-  //     teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
-  //     tournamentStatus.setText(Boolean.toString(tournament.getStatus()));
-  //     tournamentProgress.setText("50%");
-  //     input.close();
-  //   }
-  //   catch(IOException em){
-  //     System.out.println(em.getMessage());
-  //   }
-  //   catch (ClassNotFoundException es){
-  //     System.out.println(es.getMessage());
-  //   }
-  // }
+  public void getTournament1(ActionEvent event) throws IOException {
+    File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
+    readTourFile(file);
+  }
+  public void readTourFile(File file){
+    try{
+      FileInputStream fileInput = new FileInputStream(file);
+      ObjectInputStream input = new ObjectInputStream(fileInput);
+      Tournament tournament = (Tournament) input.readObject();
+      while(tournament != null){
+        if (tournament.getName().equals(tournamentNameField.getText())){
+          header.setText(tournament.getName());
+          tournamentSport.setText(tournament.getSport());
+          tournamentStartDate.setText(tournament.getStartDate());
+          tournamentEndDate.setText(tournament.getEndDate());
+          tournamentType.setText(tournament.getType()); 
+          teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
+          String status = tournament.getStatus() == true ? "Open" : "Close";
+          tournamentStatus.setText(status);
+          break;
+        }
+        ObjectInputStream input2 = new ObjectInputStream(fileInput);
+        tournament = (Tournament) input2.readObject();
+      }
+      input.close();
+    }
+    catch(IOException em){
+      System.out.println(em.getMessage());
+    }
+    catch (ClassNotFoundException es){
+      System.out.println(es.getMessage());
+    }
+  }
 
   public void goToHome(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
@@ -108,4 +99,28 @@ public class Tournament_page {
     stage.show(); 
   }
 
+  public void showTournamentProgress(ActionEvent event) throws IOException {
+    if (tournamentType.getText().equals("Elimination")){
+      Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentPlayPage.fxml"));
+      stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+      scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show(); 
+    }
+    else{
+      // Parent root = FXMLLoader.load(getClass().getResource("RoundRobinTournamentPlayPage.fxml"));
+      // stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+      // scene = new Scene(root);
+      // stage.setScene(scene);
+      // stage.show(); 
+    }
+  }
+
+  public void edit(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("tournamentInfoPage.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show(); 
+  }
 }

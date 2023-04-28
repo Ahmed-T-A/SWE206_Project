@@ -6,29 +6,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.EliminationTournament">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.EliminationTournament">
    <children>
-      <Label layoutX="341.0" layoutY="26.0" text="Elimination Tournament">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
-      <Button layoutX="599.0" layoutY="490.0" mnemonicParsing="false" text="Add Participant" />
+      <Button layoutX="456.0" layoutY="329.0" mnemonicParsing="false" text="Add Participant" />
       <Button layoutX="723.0" layoutY="490.0" mnemonicParsing="false" text="StartTournament" />
-      <TextField layoutY="54.0" />
-      <TextField layoutY="107.0" />
-      <TextField layoutX="2.0" layoutY="157.0" />
-      <TextField layoutX="1.0" layoutY="200.0" />
-      <TextField layoutX="1.0" layoutY="239.0" />
-      <TextField layoutX="1.0" layoutY="278.0" />
-      <TextField layoutX="2.0" layoutY="317.0" />
-      <TextField layoutX="3.0" layoutY="361.0" />
-      <TextField layoutX="599.0" layoutY="435.0" />
-      <Label layoutX="457.0" layoutY="435.0" text="Add Participant">
+      <TextField layoutX="26.0" layoutY="76.0" />
+      <TextField layoutX="26.0" layoutY="117.0" />
+      <TextField layoutX="26.0" layoutY="160.0" />
+      <TextField layoutX="26.0" layoutY="206.0" />
+      <TextField layoutX="26.0" layoutY="248.0" />
+      <TextField layoutX="26.0" layoutY="284.0" />
+      <TextField layoutX="26.0" layoutY="321.0" />
+      <TextField layoutX="26.0" layoutY="360.0" />
+      <TextField layoutX="430.0" layoutY="290.0" />
+      <Label layoutX="450.0" layoutY="265.0" text="Add Participant">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <AnchorPane prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #138D43;">
+         <children>
+            <Button fx:id="homeButton" layoutX="520.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" style="-fx-background-radius: 200; -fx-border-radius: 200; -fx-background-color: transperanc; -fx-border-color: #ffffff;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="AGA Arabesque" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="184.0" layoutY="20.0" text="Elimination Tournament" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
