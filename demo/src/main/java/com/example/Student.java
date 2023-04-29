@@ -8,6 +8,7 @@ public class Student implements Serializable {
   String username;
   String password;
   String email;
+  StudentProfile profile;
 
   public Student(String name, String ID, String username, String password){
     this.name = name;
@@ -15,6 +16,7 @@ public class Student implements Serializable {
     this.username = username;
     this.password = password;
     this.email = null;
+    profile = new StudentProfile(name, ID, email);
   }
 
   public Student(String name, String ID, String username, String password, String email){
@@ -23,6 +25,7 @@ public class Student implements Serializable {
     this.username = username;
     this.password = password;
     this.email = email;
+    profile = new StudentProfile(name, ID, email);
   }
 
   public String getName() {
@@ -39,6 +42,10 @@ public class Student implements Serializable {
 
   public String getPassword() {
     return password;
+  }
+
+  public StudentProfile gStudentProfile(){
+    return profile;
   }
 
   @Override

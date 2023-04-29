@@ -65,11 +65,31 @@ public class Login_page {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (matchUsernameAndPassword(username, password)){
-            Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show(); 
+            if (username.equals("AbdMajed")){
+                Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show(); 
+            }
+            else{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("studentHomePage.fxml"));
+                root = loader.load();
+                StudentHome_page controller = loader.getController();
+                try{
+                    Student student = getSpecificStudent(username);
+                    controller.setData(student, student.getName());
+                }
+                catch (ClassNotFoundException e){
+                    System.out.println(e.getMessage());
+                }
+            
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show(); 
+            }
+          
         }
         else{
             wrongMessage.setText("Wrong Data Input");
@@ -105,6 +125,23 @@ public class Login_page {
         catch (ClassNotFoundException em){
             return false;
         }
+    }
+
+    public Student getSpecificStudent(String username) throws FileNotFoundException, IOException, ClassNotFoundException{
+            File file = new File(studentPath + "students.dat");
+            FileInputStream fileInput = new FileInputStream(file);
+            ObjectInputStream input = new ObjectInputStream(fileInput);
+            Student student = (Student) input.readObject();
+            while (student != null)
+            {
+                if (student.getUsername().equals(username)){
+                    return student;
+                }
+                ObjectInputStream input2 = new ObjectInputStream(fileInput);
+                student = (Student) input2.readObject();
+            }
+            input.close();
+            return new Student(username, username, username, username, username);
     }
 
 }

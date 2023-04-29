@@ -1,9 +1,10 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentProfile {
+public class StudentProfile implements Serializable {
   String name;
   String email;
   String ID;

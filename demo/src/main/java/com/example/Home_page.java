@@ -54,13 +54,7 @@ public class Home_page extends AnchorPane{
   private Button addingTournamentButton;
 
   @FXML
-  private MenuItem logoutButton;
-
-  @FXML
-  private Menu menu_logout;
-
-  @FXML
-  private Menu menu_profile;
+  private Button logoutButton;
 
   @FXML
   private Button tourButton;  
