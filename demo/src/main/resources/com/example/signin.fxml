@@ -25,13 +25,13 @@
             </Label>
             <PasswordField fx:id="passwordField" layoutX="150.0" layoutY="173.0" />
             <TextField fx:id="usernameField" layoutX="150.0" layoutY="140.0" />
-            <Button fx:id="registerButton" layoutX="115.0" layoutY="223.0" mnemonicParsing="false" onAction="#registerAndMoveToLoginPage" prefHeight="42.0" prefWidth="149.0" style="-fx-background-color: #138d43;" text="Register" textFill="WHITE">
+            <Button fx:id="registerButton" layoutX="115.0" layoutY="257.0" mnemonicParsing="false" onAction="#registerAndMoveToLoginPage" prefHeight="42.0" prefWidth="149.0" style="-fx-background-color: #138d43;" text="Register" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="18.0" />
                </font>
             </Button>
-            <Label layoutX="102.0" layoutY="295.0" prefHeight="27.0" prefWidth="149.0" text="Already have an account?" />
-            <Button fx:id="signinButton" layoutX="233.0" layoutY="297.0" mnemonicParsing="false" onAction="#switchToLogin" style="-fx-background-color: transperance;" text="log in" textFill="#3316b3">
+            <Label layoutX="102.0" layoutY="329.0" prefHeight="27.0" prefWidth="149.0" text="Already have an account?" />
+            <Button fx:id="signinButton" layoutX="233.0" layoutY="331.0" mnemonicParsing="false" onAction="#switchToLogin" style="-fx-background-color: transperance;" text="log in" textFill="#3316b3">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -48,6 +48,12 @@
                </font>
             </Label>
             <TextField fx:id="IdField" layoutX="150.0" layoutY="109.0" />
+            <Label fx:id="password1" layoutX="55.0" layoutY="209.0" text="Email">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="emailField" layoutX="150.0" layoutY="210.0" />
          </children></AnchorPane>
    </children>
 </HBox>

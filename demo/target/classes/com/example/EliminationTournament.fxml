@@ -6,20 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.EliminationTournament">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.EliminationTournament_page">
    <children>
-      <Button layoutX="456.0" layoutY="329.0" mnemonicParsing="false" text="Add Participant" />
+      <Button fx:id="addParticipantButton" layoutX="456.0" layoutY="329.0" mnemonicParsing="false" text="Add Participant" />
       <Button layoutX="723.0" layoutY="490.0" mnemonicParsing="false" text="StartTournament" />
-      <TextField layoutX="26.0" layoutY="76.0" />
-      <TextField layoutX="26.0" layoutY="117.0" />
-      <TextField layoutX="26.0" layoutY="160.0" />
-      <TextField layoutX="26.0" layoutY="206.0" />
-      <TextField layoutX="26.0" layoutY="248.0" />
-      <TextField layoutX="26.0" layoutY="284.0" />
-      <TextField layoutX="26.0" layoutY="321.0" />
-      <TextField layoutX="26.0" layoutY="360.0" />
-      <TextField layoutX="430.0" layoutY="290.0" />
-      <Label layoutX="450.0" layoutY="265.0" text="Add Participant">
+      <TextField fx:id="participant1" layoutX="26.0" layoutY="76.0" />
+      <TextField fx:id="participant2" layoutX="26.0" layoutY="117.0" />
+      <TextField fx:id="participant3" layoutX="26.0" layoutY="160.0" />
+      <TextField fx:id="participant4" layoutX="26.0" layoutY="206.0" />
+      <TextField fx:id="participant5" layoutX="26.0" layoutY="248.0" />
+      <TextField fx:id="participant6" layoutX="26.0" layoutY="284.0" />
+      <TextField fx:id="participant7" layoutX="26.0" layoutY="321.0" />
+      <TextField fx:id="participant8" layoutX="26.0" layoutY="360.0" />
+      <TextField fx:id="addParticipantFeild" layoutX="430.0" layoutY="290.0" />
+      <Label fx:id="lable" layoutX="450.0" layoutY="265.0" text="Add Participant">
          <font>
             <Font size="16.0" />
          </font>

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,12 +27,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Home_page extends AnchorPane{
+public class Home_page extends AnchorPane{  
 
   private Stage stage;
   private Scene scene;
   private Parent root; 
-  private Tournament tournament = new Tournament("ah", "d", "g", "df", "g", true, true, false, 4, new Enrollment(0, 0), new TournamentProgress());
   String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
   
@@ -88,7 +88,7 @@ public class Home_page extends AnchorPane{
     try{
       FileInputStream fileInput = new FileInputStream(file);
       ObjectInputStream input = new ObjectInputStream(fileInput);
-      tournament = (Tournament) input.readObject();
+      Tournament tournament = (Tournament) input.readObject();
       while(tournament != null){
         Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
         button.setOnAction( e -> {
@@ -152,10 +152,6 @@ public class Home_page extends AnchorPane{
     b.getChildren().add(a);
   }
 
-  public Tournament getTournament(){
-    return tournament;
-  }
-
   @FXML
   private void addingTournamentButton(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("tournamentInfoPage.fxml"));
@@ -172,17 +168,5 @@ public class Home_page extends AnchorPane{
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show(); 
-  }
-
-  public void saveToutnament(String fileName, Tournament tournament){
-    try{
-      FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + fileName + ".dat", true);
-      ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
-      output.writeObject(tournament);
-      output.close();
-    }
-    catch(IOException e){
-      System.out.println(e.getMessage());
-    }
   }
 }

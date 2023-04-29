@@ -19,6 +19,7 @@ public class Tournament_page {
   private Stage stage;
   private Scene scene;
   private Parent root; 
+  Tournament tournament;
 
   @FXML
   private Label teamCapacity;
@@ -61,11 +62,12 @@ public class Tournament_page {
     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
     readTourFile(file);
   }
+
   public void readTourFile(File file){
     try{
       FileInputStream fileInput = new FileInputStream(file);
       ObjectInputStream input = new ObjectInputStream(fileInput);
-      Tournament tournament = (Tournament) input.readObject();
+      tournament = (Tournament) input.readObject();
       while(tournament != null){
         if (tournament.getName().equals(tournamentNameField.getText())){
           header.setText(tournament.getName());
@@ -117,7 +119,13 @@ public class Tournament_page {
   }
 
   public void edit(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("tournamentInfoPage.fxml"));
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentInfoPage.fxml"));
+    root = loader.load();
+    TournamentInfo_page controller = loader.getController();
+    controller.setData(tournament.getName(), tournament.getSport(), tournament.getEnrollment().getAvailableSeats(), tournament.getStartDate(),
+    tournament.getEndDate(),tournament.getTeamCapacity(), tournament.getType(), tournament.isTeamBased(), tournament.getStatus(), tournament.isArchived());
+
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);

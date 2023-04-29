@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +35,9 @@ public class Signin_page {
 
     @FXML
     private Label ID;
+
+    @FXML
+    private TextField emailField;
 
     @FXML
     private TextField IdField;
@@ -82,46 +86,50 @@ public class Signin_page {
         String ID = IdField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
-        Student student = new Student(name, ID, username, password);
-        boolean studentAlreadyRegisterd = studentAlreadyRegisterd(username);
-        if (studentAlreadyRegisterd == false){
+        String email = emailField.getText();
+        Student student = new Student(name, ID, username, password,email);
+        if (studentAlreadyRegistered(student) == false){
             saveToStudentFile("students", student);
-        }
-
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show(); 
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } 
     }
 
-    public boolean studentAlreadyRegisterd(String username){
-        try{
+    public boolean studentAlreadyRegistered(Student student) {
+        try {
             File file = new File(studentPath + "students.dat");
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream input = new ObjectInputStream(fileInput);
-            Student student = (Student) input.readObject();
-            while (student != null)
-            {
-                if (student.username.equals(username))
+            Object object = input.readObject();
+            while (object != null) {
+                if (student.equals((Student) object)) {
+                    System.out.println("found");
+                    input.close();
                     return true;
-
-                ObjectInputStream input2 = new ObjectInputStream(fileInput);
-                student = (Student) input2.readObject();
+                } else {
+                    object = input.readObject();
+                }
             }
             input.close();
             return false;
-        }
-        catch(FileNotFoundException e){
-            return true;
-        }
-        catch (IOException es){
-            return true;
-        }
-        catch (ClassNotFoundException em){
-            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            return false;
+        } catch (EOFException e) {
+            System.out.println("End of file reached");
+            return false;
+        } catch (IOException e) {
+            System.out.println("IOException occurred");
+            return false;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
+            return false;
         }
     }
+    
 
     public void saveToStudentFile(String fileName, Student student){
 

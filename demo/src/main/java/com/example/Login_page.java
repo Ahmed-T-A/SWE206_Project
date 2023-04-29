@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Login_page {
@@ -28,6 +29,9 @@ public class Login_page {
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Label wrongMessage;
 
     @FXML
     private Button bytoo;
@@ -60,13 +64,16 @@ public class Login_page {
     void loginUser(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        // if (matchUsernameAndPassword(username, password)){
+        if (matchUsernameAndPassword(username, password)){
             Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show(); 
-        // }
+        }
+        else{
+            wrongMessage.setText("Wrong Data Input");
+        }
     }
 
     public boolean matchUsernameAndPassword(String username, String password){
@@ -78,8 +85,10 @@ public class Login_page {
             while (student != null)
             {
                 if (student.getUsername().equals(username)){
-                    if (student.getPassword().equals(password))
+                    if (student.getPassword().equals(password)){
+                        input.close();
                         return true;
+                    }
                 }
                 ObjectInputStream input2 = new ObjectInputStream(fileInput);
                 student = (Student) input2.readObject();
@@ -97,25 +106,5 @@ public class Login_page {
             return false;
         }
     }
-    public void bfdks(ActionEvent event) throws IOException{
-        try{
-            File file = new File(studentPath + "students.dat");
-            FileInputStream fileInput = new FileInputStream(file);
-            ObjectInputStream input = new ObjectInputStream(fileInput);
-            Student student = (Student) input.readObject();
-            while (student != null)
-            {
-                System.out.println(student.getUsername() + "\n" + student.getPassword());
-                ObjectInputStream input2 = new ObjectInputStream(fileInput);
-                student = (Student) input2.readObject();
-            }
-            input.close();
-        }
-        catch(FileNotFoundException e){
-        }
-        catch (IOException es){
-        }
-        catch (ClassNotFoundException em){
-        }
-    }
+
 }

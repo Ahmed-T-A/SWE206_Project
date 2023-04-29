@@ -1,8 +1,15 @@
 package com.example;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +29,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TournamentInfo_page {
+
+  private static final long serialVersionUID = -3376593017416497415L;
+
 
   private Stage stage;
   private Scene scene;
@@ -69,6 +79,24 @@ public class TournamentInfo_page {
     @FXML
     private AnchorPane welcomeScene;
 
+    public void setData(String name, String sport, int availavleSeats,String startDate, String endDate,
+     int teamCapacity,String tourType, boolean teamBased, boolean status, boolean isArchived)
+     {
+      tournamentNameField.setText(name);
+      tournamentSportField.setText(sport);
+      startDateField.setText(startDate);
+      endDateField.setText(endDate);
+      availableSeatsField.setText(Integer.toString(availavleSeats));
+      teamCapacityField.setText(Integer.toString(teamCapacity));
+      comBox.setValue(tourType);
+      if (teamBased == true )
+        teamBasedButton.setSelected(true);
+      if (status == true )
+        statusCheck.setSelected(true);
+      if (isArchived == true )
+        archivedCheck.setSelected(true);
+     }
+
     @FXML
     public void initialize() {
       comBox.getItems().removeAll(comBox.getItems());
@@ -79,18 +107,6 @@ public class TournamentInfo_page {
     @FXML
     void comboItems(ActionEvent event) throws IOException {
       tournamentType = comBox.getValue();
-    }
-
-    public void saveToutnament(String fileName, Tournament tournament){
-      try{
-        FileOutputStream theBinaryFile = new FileOutputStream(savedTournamentPath + fileName + ".dat", true);
-        ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
-        output.writeObject(tournament);
-        output.close();
-      }
-      catch(IOException e){
-        System.out.println(e.getMessage());
-      }
     }
 
     @FXML
@@ -106,10 +122,9 @@ public class TournamentInfo_page {
       String teamCapacity = teamCapacityField.getText();
       Enrollment enrollment = new Enrollment(Integer.parseInt(availableSeatsField.getText()), 0);
       TournamentProgress tournamentProgress = new TournamentProgress();
-      String availableSeats = availableSeatsField.getText();
       Tournament tournament = new Tournament(name, sport, startDate, endDate, tourType, status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
 
-      saveToutnament("tournaments", tournament);
+      tournament.saveToFile("tournaments");
     }
 
     @FXML

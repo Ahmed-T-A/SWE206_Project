@@ -1,9 +1,17 @@
 package com.example;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Tournament implements Serializable {
+  private static final long serialVersionUID = -3376593017416497415L;
   //-----------------
   private String name;
   private String sport;
@@ -146,6 +154,64 @@ public class Tournament implements Serializable {
   public void setProgress(TournamentProgress progress) {
     this.progress = progress;
   }
+
+  public void saveToFile(String fileName){
+    try{
+      File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\" + fileName + ".dat");
+      FileOutputStream theBinaryFile = new FileOutputStream(file, true);
+      ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
+      output.writeObject(this);
+      output.close();
+    }
+    catch(IOException e){
+      System.out.println(e.getMessage());
+    }
+  }
+
+//   public void saveToFile(String fileName){
+//     ArrayList<Tournament> tournaments = new ArrayList<>();
+//     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\" + fileName + ".dat");
+      
+//     // Read existing tournaments from file
+//     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+//         Object obj = in.readObject();
+//         while (obj != null) {
+//             if (obj instanceof Tournament) {
+//                 Tournament t = (Tournament) obj;
+//                 if (t.getName().equals(this.getName())) {
+//                     // Replace existing tournament
+//                     tournaments.add(this);
+//                 } else {
+//                     tournaments.add(t);
+//                 }
+//             }
+//             obj = in.readObject();
+//         }
+//     } catch (FileNotFoundException e) {
+//         System.out.println(e.getMessage());
+//     } catch (IOException e) {
+//         System.out.println(e.getMessage());
+//     } catch (ClassNotFoundException e) {
+//         System.out.println(e.getMessage());
+//     }
+
+//     // Append new tournament if it does not exist
+//     if (!tournaments.contains(this)) {
+//         tournaments.add(this);
+//     }
+
+//     // Write tournaments back to file
+//     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+//         for (Tournament t : tournaments) {
+//             out.writeObject(t);
+//         }
+//     } catch (FileNotFoundException e) {
+//         System.out.println(e.getMessage());
+//     } catch (IOException e) {
+//         System.out.println(e.getMessage());
+//     }
+// }
+
 
   @Override
   public String toString() {

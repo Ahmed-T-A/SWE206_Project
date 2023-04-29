@@ -1,6 +1,8 @@
 package com.example;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
   String name;
   String ID;
   String username;
@@ -39,5 +41,40 @@ public class Student {
     return password;
   }
 
-  
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Student other = (Student) obj;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    if (ID == null) {
+      if (other.ID != null)
+        return false;
+    } else if (!ID.equals(other.ID))
+      return false;
+    if (username == null) {
+      if (other.username != null)
+        return false;
+    } else if (!username.equals(other.username))
+      return false;
+    if (password == null) {
+      if (other.password != null)
+        return false;
+    } else if (!password.equals(other.password))
+      return false;
+    if (email == null) {
+      if (other.email != null)
+        return false;
+    } else if (!email.equals(other.email))
+      return false;
+    return true;
+  }  
 }

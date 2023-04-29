@@ -22,27 +22,53 @@ public class EliminationTournament_page
     private Scene scene;
     @FXML
     private Parent root;
-    @FXML
-    private Button startTournament;
-    @FXML
-    private Button addParticipant;
-    @FXML
 
+    String name;
+    String ID;
+    String username;
+    String password;
+    String email;
+
+    @FXML
+    private Button addParticipantButton;
+
+    @FXML
+    private TextField addParticipantFeild;
+
+    @FXML
+    private Button homeButton;
+
+    @FXML
     private TextField participant1;
+
     @FXML
     private TextField participant2;
+
     @FXML
     private TextField participant3;
+
     @FXML
     private TextField participant4;
+
     @FXML
     private TextField participant5;
+
     @FXML
     private TextField participant6;
+
     @FXML
     private TextField participant7;
+
     @FXML
     private TextField participant8;
+
+    public void setProb(String name, String ID, String username, String password, String email){
+        participant1.setText(name);
+        participant2.setText(ID);
+        participant3.setText(username);
+        participant4.setText(password);
+        participant5.setText(email);
+    }
 
     public void startTournamentButton(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("EliminationTournament.fxml"));
