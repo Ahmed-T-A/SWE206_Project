@@ -1,6 +1,7 @@
 package com.example;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,27 +13,49 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class EliminationTournament_play_page extends EliminationTournament_match_page{
+    @FXML
     TextField quarterFinal1;
+    @FXML
     TextField quarterFinal2;
+    @FXML
     TextField quarterFinal3;
+    @FXML
     TextField quarterFinal4;
+    @FXML
     TextField quarterFinal5;
+    @FXML
     TextField quarterFinal6;
+    @FXML
     TextField quarterFinal7;
+    @FXML
     TextField quarterFinal8;
+    @FXML
     TextField SemiFinal1;
+    @FXML
     TextField SemiFinal2;
+    @FXML
     TextField SemiFinal3;
+    @FXML
     TextField SemiFinal4;
+    @FXML
     TextField Final1;
+    @FXML
     TextField Final2;
+    @FXML
     TextField Champion;
+    @FXML
     Button match1;
+    @FXML
     Button match2;
+    @FXML
     Button match3;
+    @FXML
     Button match4;
+    @FXML
     Button match5;
+    @FXML
     Button match6;
+    @FXML
     Button match7;
 
 
