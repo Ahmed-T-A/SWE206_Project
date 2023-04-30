@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.showStudentProfile_page">
    <children>
       <AnchorPane prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #138D43;">
@@ -31,7 +30,7 @@
          </font>
       </Label>
       <TextField fx:id="studentNameField" layoutX="236.0" layoutY="63.0" />
-      <Button fx:id="searchButton" layoutX="398.0" layoutY="62.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="53.0" style="-fx-background-radius: 200; -fx-border-radius: 200; -fx-background-color: transperanc; -fx-border-color: #000000;" text="search" />
+      <Button fx:id="searchButton" layoutX="398.0" layoutY="62.0" mnemonicParsing="false" onAction="#searchButton" prefHeight="0.0" prefWidth="53.0" style="-fx-background-radius: 200; -fx-border-radius: 200; -fx-background-color: transperanc; -fx-border-color: #000000;" text="search" />
       <Label layoutX="34.0" layoutY="112.0" text="Student Name:">
          <font>
             <Font name="Arial Rounded MT Bold" size="15.0" />

@@ -48,6 +48,14 @@ public class Student implements Serializable {
     return profile;
   }
 
+  public void addInProgreeTourToProfile(Tournament tournament, String rank){
+    profile.addToInProgressTournaments(tournament, rank);
+  }
+
+  public void addPastTourToProfile(Tournament tournament, String rank){
+    profile.addToPastTournaments(tournament, rank);
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -83,5 +91,10 @@ public class Student implements Serializable {
     } else if (!email.equals(other.email))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "Student [name=" + name + ", ID=" + ID + "]";
   }  
 }

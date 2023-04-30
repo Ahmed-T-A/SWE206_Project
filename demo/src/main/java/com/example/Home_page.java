@@ -63,12 +63,6 @@ public class Home_page extends AnchorPane{
   private Button showStudentProfileButton;
 
   //------------------
-
-  @FXML
-  void goToProfile() {
-
-  }
-
   @FXML
   private void logoutButton(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));

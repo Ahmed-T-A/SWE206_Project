@@ -7,12 +7,15 @@ import java.io.ObjectInputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Tournament_page {
@@ -57,6 +60,9 @@ public class Tournament_page {
   @FXML
   private Button tourProgressButton;
 
+  @FXML
+  private VBox requestsVBox;
+
 
   public void getTournament1(ActionEvent event) throws IOException {
     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
@@ -78,6 +84,20 @@ public class Tournament_page {
           teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
           String status = tournament.getStatus() == true ? "Open" : "Close";
           tournamentStatus.setText(status);
+
+          Label request = new Label();
+          String n = tournament.getEnrollment().getRequests().get(0).toString();
+          request.setText(n);
+          request.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque';");
+          requestsVBox.setMargin(request, new Insets(10, 10, 10, 10));   
+          requestsVBox.setAlignment(Pos.CENTER);
+          requestsVBox.getChildren().add(request);
+
+          // for (int i = 0; i < tournament.getEnrollment().getRequests().size(); i++){
+          //   request.setText(tournament.getEnrollment().getRequests().get(i).toString());
+          //   requestsVBox.getChildren().add(request);
+          // }
+
           break;
         }
         ObjectInputStream input2 = new ObjectInputStream(fileInput);

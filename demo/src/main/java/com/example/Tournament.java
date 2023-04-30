@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -139,6 +140,10 @@ public class Tournament implements Serializable {
     return enrollment;
   }
 
+  public void makeRequest(Student student){
+    enrollment.request(student);
+  }
+
   public String getEnrollmentStatistics() {
     return enrollment.toString();
   }
@@ -168,50 +173,42 @@ public class Tournament implements Serializable {
     }
   }
 
-//   public void saveToFile(String fileName){
-//     ArrayList<Tournament> tournaments = new ArrayList<>();
-//     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\" + fileName + ".dat");
-      
-//     // Read existing tournaments from file
-//     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-//         Object obj = in.readObject();
-//         while (obj != null) {
-//             if (obj instanceof Tournament) {
-//                 Tournament t = (Tournament) obj;
-//                 if (t.getName().equals(this.getName())) {
-//                     // Replace existing tournament
-//                     tournaments.add(this);
-//                 } else {
-//                     tournaments.add(t);
-//                 }
-//             }
-//             obj = in.readObject();
-//         }
-//     } catch (FileNotFoundException e) {
-//         System.out.println(e.getMessage());
-//     } catch (IOException e) {
-//         System.out.println(e.getMessage());
-//     } catch (ClassNotFoundException e) {
-//         System.out.println(e.getMessage());
-//     }
+  // public void saveToFile(String fileName) throws IOException {
+  //   File file = new File(fileName);
+  //   boolean exists = file.exists();
+  //   ObjectInputStream in = null;
+  //   ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+  //   try {
+  //       if (exists) {
+  //           in = new ObjectInputStream(new FileInputStream(fileName));
+  //           boolean replaced = false;
+  //           while (true) {
+  //               Tournament t = (Tournament) in.readObject();
+  //               if (!replaced && t.getName().equals(this.getName())) {
+  //                   out.writeObject(this);
+  //                   replaced = true;
+  //               } else {
+  //                   out.writeObject(t);
+  //               }
+  //           }
+  //       }
+  //       else{
+  //         out.writeObject(this);
+  //       }
 
-//     // Append new tournament if it does not exist
-//     if (!tournaments.contains(this)) {
-//         tournaments.add(this);
-//     }
-
-//     // Write tournaments back to file
-//     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-//         for (Tournament t : tournaments) {
-//             out.writeObject(t);
-//         }
-//     } catch (FileNotFoundException e) {
-//         System.out.println(e.getMessage());
-//     } catch (IOException e) {
-//         System.out.println(e.getMessage());
-//     }
-// }
-
+  //       out.close();
+  //   } catch (EOFException e) {
+  //       // Reached end of file
+  //   } catch (ClassNotFoundException e) {
+  //       e.printStackTrace();
+  //   } finally {
+  //       if (in != null) {
+  //           in.close();
+  //       }
+  //       // out.writeObject(this);
+  //       // out.close();
+  //   }
+  // }
 
   @Override
   public String toString() {

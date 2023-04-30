@@ -41,12 +41,12 @@ public class StudentProfile implements Serializable {
     this.email = email;
   }
 
-  public void addToInProgressTournaments(String tourName, String rank) {
-    inProgressTournaments.put(tourName, rank);
+  public void addToInProgressTournaments(Tournament tournament, String rank) {
+    inProgressTournaments.put(tournament.getName(), rank);
   }
 
-  public void addToPastTournaments(String tourName, String place) {
-    pastTournaments.put(tourName, place);
+  public void addToPastTournaments(Tournament tournament, String place) {
+    pastTournaments.put(tournament.getName(), place);
   }
 
   
