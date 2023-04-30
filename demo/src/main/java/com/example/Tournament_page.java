@@ -63,10 +63,29 @@ public class Tournament_page {
   @FXML
   private VBox requestsVBox;
 
+  @FXML
+  private Label wrongMessage;
 
+  @FXML
+  private Label label;
+
+
+  @FXML
   public void getTournament1(ActionEvent event) throws IOException {
     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
     readTourFile(file);
+    if (!label.getText().equals(" ")){
+      wrongMessage.setText("There is no tournament with this name");
+      label.setText(" ");
+      header.setText("");
+      tournamentSport.setText("");
+      tournamentStartDate.setText("");
+      tournamentEndDate.setText("");
+      tournamentType.setText(""); 
+      teamCapacity.setText("");
+      tournamentStatus.setText("");
+      requestsVBox.getChildren().removeAll();
+    }
   }
 
   public void readTourFile(File file){
@@ -74,8 +93,12 @@ public class Tournament_page {
       FileInputStream fileInput = new FileInputStream(file);
       ObjectInputStream input = new ObjectInputStream(fileInput);
       tournament = (Tournament) input.readObject();
+      label.setText("");
+      requestsVBox.getChildren().removeAll();
       while(tournament != null){
         if (tournament.getName().equals(tournamentNameField.getText())){
+          label.setText(" ");
+          wrongMessage.setText("");
           header.setText(tournament.getName());
           tournamentSport.setText(tournament.getSport());
           tournamentStartDate.setText(tournament.getStartDate());
@@ -103,6 +126,7 @@ public class Tournament_page {
         ObjectInputStream input2 = new ObjectInputStream(fileInput);
         tournament = (Tournament) input2.readObject();
       }
+      
       input.close();
     }
     catch(IOException em){

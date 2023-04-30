@@ -83,6 +83,7 @@ public class TournamentInfo_page {
      int teamCapacity,String tourType, boolean teamBased, boolean status, boolean isArchived)
      {
       tournamentNameField.setText(name);
+      tournamentNameField.setEditable(false);
       tournamentSportField.setText(sport);
       startDateField.setText(startDate);
       endDateField.setText(endDate);
@@ -124,8 +125,12 @@ public class TournamentInfo_page {
       enrollment.request(new Student("Ahmed", "200000", "kfv", "tourType", "teamCapacity"));
       TournamentProgress tournamentProgress = new TournamentProgress();
       Tournament tournament = new Tournament(name, sport, startDate, endDate, tourType, status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
-
-      tournament.saveToFile("tournaments");
+      if(tournament.alreadyExists("tournaments")){
+        tournament.saveAndRemoveToFile("tournaments");
+      }
+      else{
+        tournament.saveToFile("tournaments");
+      }
     }
 
     @FXML

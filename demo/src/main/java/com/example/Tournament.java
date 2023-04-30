@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Tournament implements Serializable {
   private static final long serialVersionUID = -3376593017416497415L;
+  String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
   //-----------------
   private String name;
   private String sport;
@@ -162,7 +163,7 @@ public class Tournament implements Serializable {
 
   public void saveToFile(String fileName){
     try{
-      File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\" + fileName + ".dat");
+      File file = new File(savedTournamentPath + fileName + ".dat");
       FileOutputStream theBinaryFile = new FileOutputStream(file, true);
       ObjectOutputStream output = new ObjectOutputStream(theBinaryFile);
       output.writeObject(this);
@@ -170,6 +171,71 @@ public class Tournament implements Serializable {
     }
     catch(IOException e){
       System.out.println(e.getMessage());
+    }
+  }
+
+  public boolean alreadyExists(String fileName){
+    try {
+      File file = new File(savedTournamentPath + fileName + ".dat");
+      FileInputStream fileInputStream =new FileInputStream(file);
+      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+      Tournament tournament = (Tournament) objectInputStream.readObject();
+      while(tournament != null){
+        if(getName().equals(tournament.getName())){
+          objectInputStream.close();
+          return true;
+        }
+        ObjectInputStream objectInputStream2 = new ObjectInputStream(fileInputStream);
+        tournament = (Tournament) objectInputStream2.readObject();
+      }
+      objectInputStream.close();
+      return false;
+    }
+    catch(ClassNotFoundException e){
+      System.out.println(e.getMessage());
+      return false;
+    }
+    catch(IOException e){
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  public void saveAndRemoveToFile(String fileName){
+    try {
+      ArrayList<Tournament> arrayList = new ArrayList<Tournament>();
+      File file = new File(savedTournamentPath + fileName + ".dat");
+      FileInputStream fileInputStream =new FileInputStream(file);
+      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+      Tournament tournament = (Tournament) objectInputStream.readObject();
+      while(tournament != null){
+        if(!getName().equals(tournament.getName())){
+          arrayList.add(tournament);
+        }
+        ObjectInputStream objectInputStream2 = new ObjectInputStream(fileInputStream);
+        tournament = (Tournament) objectInputStream2.readObject();
+      }
+      objectInputStream.close();
+      arrayList.add(this);
+      saveToFile(fileName, arrayList);
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
+  }
+
+  public void saveToFile(String fileName, ArrayList<Tournament> arrayList){
+    try {
+      File file = new File(savedTournamentPath + fileName + ".dat");
+      file.delete();
+      File file2 = new File(savedTournamentPath + fileName + ".dat");
+      FileOutputStream fileOutputStream = new FileOutputStream(file2);
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      for(int i = 0; i < arrayList.size(); i++){
+        objectOutputStream.writeObject(arrayList.remove(arrayList.get(i)));
+      }
+      objectOutputStream.close();
+    } catch (Exception e) {
+      // TODO: handle exception
     }
   }
 

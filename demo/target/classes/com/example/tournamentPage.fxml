@@ -64,7 +64,7 @@
             <Font name="Arial Rounded MT Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="tournamentSport" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="154.0" prefHeight="17.0" prefWidth="120.0" textFill="#138d43">
+      <Label fx:id="tournamentSport" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="154.0" prefHeight="17.0" prefWidth="120.0" text=" " textFill="#138d43">
          <font>
             <Font name="Arial Rounded MT Bold" size="15.0" />
          </font>
@@ -123,5 +123,15 @@
             </AnchorPane>
          </content>
       </ScrollPane>
+      <Label fx:id="wrongMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="106.0" prefHeight="15.0" prefWidth="233.0" textFill="#db1010">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="572.0" layoutY="67.0" prefHeight="17.0" prefWidth="14.0" textFill="#138d43">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

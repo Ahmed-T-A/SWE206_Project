@@ -41,6 +41,11 @@
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>
             </Label>
+            <Label layoutX="70.0" layoutY="37.0" text="LOG  IN  PAGE" textFill="#138d43">
+               <font>
+                  <Font name="Jokerman" size="33.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
