@@ -160,7 +160,7 @@ public class EliminationTournament_play_page extends EliminationTournament_match
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Score Game Betwwen   "+Final1+"and   "+Final2);
+        primaryStage.setTitle("Score Game Betwwen   " + Final1 + "and   " + Final2);
         primaryStage.initModality(Modality.WINDOW_MODAL);
         primaryStage.show();
     }

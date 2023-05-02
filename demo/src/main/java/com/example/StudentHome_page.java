@@ -1,9 +1,11 @@
 package com.example;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,48 +68,80 @@ public class StudentHome_page {
   @FXML
   public void initialize(){
     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
-    readFile(file);
+    readTourFile(file);
   }
 
-  public void readFile(File file){
-    try{
-      FileInputStream fileInput = new FileInputStream(file);
-      ObjectInputStream input = new ObjectInputStream(fileInput);
-      Tournament tournament = (Tournament) input.readObject();
-      while(tournament != null){
-        Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
-        Button button2 = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
-        button2.setMinWidth(223);
-        button2.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 12px 'AGA Arabesque'; -fx-background-color:  #7de2f6; -fx-text-alignment: center;}");  
-        button.setOnAction( e -> {
-          try{
-            Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
-            stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show(); 
-          }
-          catch(IOException em){
-            System.out.println(em.getMessage());
-          }
-        });
-        if (tournament.getStatus() == true){
-          availableTour.setMargin(button, new Insets(10, 10, 10, 10));
-          availableTour.getChildren().add(button);
-          inProgressTour.setMargin(button2, new Insets(10, 10, 10, 10));
-          inProgressTour.getChildren().add(button2);
+  public void readTourFile(File file) {
+    try (FileInputStream fileInput = new FileInputStream(file);
+         ObjectInputStream input = new ObjectInputStream(fileInput)) {
+
+        while (true) {
+            try {
+                Tournaments tournaments = (Tournaments) input.readObject();
+                if (tournaments == null) {
+                    break; // exit the loop if end of file is reached
+                }
+                ArrayList<Tournament> available = tournaments.getAvailableTournaments();
+                ArrayList<Tournament> inProgress = tournaments.getInProgressTournaments();
+                ArrayList<Tournament> previous = tournaments.getPreviousTournaments();
+                for(int i = 0; i < inProgress.size(); i++){
+                  Button button = addToHbox(inProgress.get(i).getName(), inProgress.get(i).getSport(), 
+                  inProgress.get(i).isTeamBased(), inProgress.get(i).getEnrollment().getAvailableSeats());
+                  // Tournament tournament = inProgress.get(i);
+                  // button.setOnAction(e -> {
+                  //       try {
+                  //           FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+                  //           root = loader.load();
+                  //           Tournament_page controller = loader.getController();
+                  //           controller.setData(tournament);
+
+                  //           // Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
+                  //           stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                  //           scene = new Scene(root);
+                  //           stage.setScene(scene);
+                  //           stage.show();
+                  //       } catch (IOException em) {
+                  //           System.out.println(em.getMessage());
+                  //       }
+                  // });
+                  button.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color: #99cf91; -fx-text-alignment: center;}");
+                  button.setMinWidth(240);
+                  inProgressTour.setMargin(button, new Insets(20, 10, 10, 10));
+                  inProgressTour.getChildren().add(button);
+                }
+                for(int i = 0; i < available.size(); i++){
+                  Button button = addToHbox(available.get(i).getName(), available.get(i).getSport(), 
+                  available.get(i).isTeamBased(), available.get(i).getEnrollment().getAvailableSeats());
+                  // Tournament tournament = available.get(i);
+                  // button.setOnAction(e -> {
+                  //   try {
+                  //       FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+                  //       root = loader.load();
+                  //       Tournament_page controller = loader.getController();
+                  //       controller.setData(tournament);
+
+                  //       // Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
+                  //       stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                  //       scene = new Scene(root);
+                  //       stage.setScene(scene);
+                  //       stage.show();
+                  //   } catch (IOException em) {
+                  //       System.out.println(em.getMessage());
+                  //   }
+                  // });
+                  availableTour.setMargin(button, new Insets(20, 10, 10, 10));
+                  availableTour.getChildren().add(button);
+                }
+            } catch (EOFException eof) {
+                break; // exit the loop if end of file is reached
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex);
+            }
         }
-        ObjectInputStream input2 = new ObjectInputStream(fileInput);
-        tournament = (Tournament) input2.readObject();
-      }
+    } catch (IOException em) {
+        System.out.println(em);
     }
-    catch(IOException em){
-      System.out.println(em.getMessage());
-    }
-    catch (ClassNotFoundException es){
-      System.out.println(es.getMessage());
-    }
-  }
+}
 
   public Button addToHbox(String name, String sport, boolean teamBased, int availableSeats){
     String teamBased2 = teamBased == true ? "team based" : "indevidual based"; 

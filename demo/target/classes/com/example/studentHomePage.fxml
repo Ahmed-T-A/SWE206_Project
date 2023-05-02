@@ -44,7 +44,7 @@
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="280.0" layoutY="154.0" prefHeight="110.0" prefWidth="306.0" vbarPolicy="NEVER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="280.0" layoutY="154.0" prefHeight="115.0" prefWidth="306.0" vbarPolicy="NEVER">
          <content>
             <AnchorPane prefHeight="94.0" prefWidth="304.0">
                <children>

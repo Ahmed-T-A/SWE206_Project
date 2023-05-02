@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,56 +73,105 @@ public class Home_page extends AnchorPane{
     stage.setScene(scene);
     stage.show(); 
   }
+  @FXML
+  public void initialize(){
+    File file = new File(savedTournamentPath + "tournaments.dat");
+    readTourFile(file);
+  }
 
-  public void readTourFile(File file){
-    try{
-      FileInputStream fileInput = new FileInputStream(file);
-      ObjectInputStream input = new ObjectInputStream(fileInput);
-      Tournament tournament = (Tournament) input.readObject();
-      while(tournament != null){
-        Button button = addToHbox(tournament.getName(), tournament.getSport(), tournament.isTeamBased(), tournament.getEnrollment().getAvailableSeats());
-        button.setOnAction( e -> {
-          try{
-            Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
-            stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+  public void readTourFile(File file) {
+    try (FileInputStream fileInput = new FileInputStream(file);
+      ObjectInputStream input = new ObjectInputStream(fileInput)) {
+      Tournaments tournaments = (Tournaments) input.readObject();
+      if (tournaments == null) {
+        return;
+      }
+      ArrayList<Tournament> available = tournaments.getAvailableTournaments();
+      ArrayList<Tournament> inProgress = tournaments.getInProgressTournaments();
+      ArrayList<Tournament> previous = tournaments.getPreviousTournaments();
+      for(int i = 0; i < inProgress.size(); i++){
+        Button button = addToHbox(inProgress.get(i).getName(), inProgress.get(i).getSport(), 
+        inProgress.get(i).isTeamBased(), inProgress.get(i).getEnrollment().getAvailableSeats());
+        Tournament tournament = inProgress.get(i);
+        button.setOnAction(e -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            root = loader.load();
+            Tournament_page controller = loader.getController();
+            controller.setData(tournament);
+
+            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            stage.show(); 
-          }
-          catch(IOException em){
+            stage.show();
+          } catch (IOException em) {
             System.out.println(em.getMessage());
           }
         });
-        if (tournament.getStatus() == true){
-          availableTournaments.setMargin(button, new Insets(20, 10, 10, 10));
-          availableTournaments.getChildren().add(button);
-        }
-        else if (tournament.getStatus() == false && tournament.isArchived() == true){
-          button.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #d0909c; -fx-text-alignment: center;}");  
-          archevedTournaments.setMargin(button, new Insets(20, 10, 10, 10));
-          archevedTournaments.getChildren().add(button);
-        }
-        else{
-          button.setStyle("-fx-text-fill: #181818;  -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color:  #99cf91; -fx-text-alignment: center;}");  
-          tournamentsInProgress.setMargin(button, new Insets(20, 10, 10, 10));
-          tournamentsInProgress.getChildren().add(button);
-        }
-        ObjectInputStream input2 = new ObjectInputStream(fileInput);
-        tournament = (Tournament) input2.readObject();
+        button.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color: #99cf91; -fx-text-alignment: center;}");
+        tournamentsInProgress.setMargin(button, new Insets(20, 10, 10, 10));
+        tournamentsInProgress.getChildren().add(button);
       }
-      input.close();
+      for(int i = 0; i < available.size(); i++){
+        Button button = addToHbox(available.get(i).getName(), available.get(i).getSport(), 
+        available.get(i).isTeamBased(), available.get(i).getEnrollment().getAvailableSeats());
+        Tournament tournament = available.get(i);
+        button.setOnAction(e -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            root = loader.load();
+            Tournament_page controller = loader.getController();
+            controller.setData(tournament);
+
+            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+          } 
+          catch (IOException em) {
+            System.out.println(em.getMessage());
+          }
+        });
+        availableTournaments.setMargin(button, new Insets(20, 10, 10, 10));
+        availableTournaments.getChildren().add(button);
+      }
+      for(int i = 0; i < previous.size(); i++){
+        Button button = addToHbox(previous.get(i).getName(), previous.get(i).getSport(), 
+        previous.get(i).isTeamBased(), previous.get(i).getEnrollment().getAvailableSeats());
+        Tournament tournament = previous.get(i);
+        button.setOnAction(e -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            root = loader.load();
+            Tournament_page controller = loader.getController();
+            controller.setData(tournament);
+
+            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+          } 
+          catch (IOException em) {
+            System.out.println(em.getMessage());
+          }
+        });
+        button.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque'; -fx-background-color: #d0909c; -fx-text-alignment: center;}");
+        archevedTournaments.setMargin(button, new Insets(20, 10, 10, 10));
+        archevedTournaments.getChildren().add(button);
+      }
     }
-    catch(IOException em){
-      System.out.println(em.getMessage());
+    catch (IOException em) {
+        System.out.println(em);
     }
-    catch (ClassNotFoundException es){
-      System.out.println(es.getMessage());
-    }
+    catch (ClassNotFoundException ex) {
+      System.out.println(ex);
   }
+}
+
 
   @FXML
   public void readTournamentsFile(ActionEvent event) throws IOException{
-    File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
+    File file = new File(savedTournamentPath + "tournaments.dat");
     readTourFile(file);
   }
 

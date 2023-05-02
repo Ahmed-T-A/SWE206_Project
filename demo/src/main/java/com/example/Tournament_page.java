@@ -55,87 +55,32 @@ public class Tournament_page {
   private Label tournamentType;
 
   @FXML
-  private TextField tournamentNameField;
-
-  @FXML
   private Button tourProgressButton;
 
   @FXML
   private VBox requestsVBox;
 
-  @FXML
-  private Label wrongMessage;
 
-  @FXML
-  private Label label;
+  public void setData(Tournament tournament){
+    this.tournament = tournament;
+    header.setText(tournament.getName());
+    tournamentSport.setText(tournament.getSport());
+    tournamentStartDate.setText(tournament.getStartDate());
+    tournamentEndDate.setText(tournament.getEndDate());
+    tournamentType.setText(tournament.getType()); 
+    teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
+    String status = tournament.getStatus() == true ? "Open" : "Close";
+    tournamentStatus.setText(status);
 
-
-  @FXML
-  public void getTournament1(ActionEvent event) throws IOException {
-    File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
-    readTourFile(file);
-    if (!label.getText().equals(" ")){
-      wrongMessage.setText("There is no tournament with this name");
-      label.setText(" ");
-      header.setText("");
-      tournamentSport.setText("");
-      tournamentStartDate.setText("");
-      tournamentEndDate.setText("");
-      tournamentType.setText(""); 
-      teamCapacity.setText("");
-      tournamentStatus.setText("");
-      requestsVBox.getChildren().removeAll();
-    }
+    Label request = new Label();
+    // String n = tournament.getEnrollment().getRequests().get(0).toString();
+    // request.setText(n);
+    request.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque';");
+    requestsVBox.setMargin(request, new Insets(10, 10, 10, 10));   
+    requestsVBox.setAlignment(Pos.CENTER);
+    requestsVBox.getChildren().add(request);
   }
 
-  public void readTourFile(File file){
-    try{
-      FileInputStream fileInput = new FileInputStream(file);
-      ObjectInputStream input = new ObjectInputStream(fileInput);
-      tournament = (Tournament) input.readObject();
-      label.setText("");
-      requestsVBox.getChildren().removeAll();
-      while(tournament != null){
-        if (tournament.getName().equals(tournamentNameField.getText())){
-          label.setText(" ");
-          wrongMessage.setText("");
-          header.setText(tournament.getName());
-          tournamentSport.setText(tournament.getSport());
-          tournamentStartDate.setText(tournament.getStartDate());
-          tournamentEndDate.setText(tournament.getEndDate());
-          tournamentType.setText(tournament.getType()); 
-          teamCapacity.setText((Integer.toString(tournament.getTeamCapacity())));
-          String status = tournament.getStatus() == true ? "Open" : "Close";
-          tournamentStatus.setText(status);
-
-          Label request = new Label();
-          String n = tournament.getEnrollment().getRequests().get(0).toString();
-          request.setText(n);
-          request.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque';");
-          requestsVBox.setMargin(request, new Insets(10, 10, 10, 10));   
-          requestsVBox.setAlignment(Pos.CENTER);
-          requestsVBox.getChildren().add(request);
-
-          // for (int i = 0; i < tournament.getEnrollment().getRequests().size(); i++){
-          //   request.setText(tournament.getEnrollment().getRequests().get(i).toString());
-          //   requestsVBox.getChildren().add(request);
-          // }
-
-          break;
-        }
-        ObjectInputStream input2 = new ObjectInputStream(fileInput);
-        tournament = (Tournament) input2.readObject();
-      }
-      
-      input.close();
-    }
-    catch(IOException em){
-      System.out.println(em.getMessage());
-    }
-    catch (ClassNotFoundException es){
-      System.out.println(es.getMessage());
-    }
-  }
 
   public void goToHome(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
@@ -147,7 +92,11 @@ public class Tournament_page {
 
   public void showTournamentProgress(ActionEvent event) throws IOException {
     if (tournamentType.getText().equals("Elimination")){
-      Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentPlayPage.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("EliminationTournamentPlayPage.fxml"));
+      root = loader.load();
+      EliminationTournament_match_page controller = loader.getController();
+      controller.setData(tournament);
+
       stage = (Stage)((Node)event.getSource()).getScene().getWindow();
       scene = new Scene(root);
       stage.setScene(scene);
