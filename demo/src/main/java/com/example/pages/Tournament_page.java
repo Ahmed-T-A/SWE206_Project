@@ -1,9 +1,12 @@
-package com.example;
+package com.example.pages;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import com.example.Tournament;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,46 +22,46 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Tournament_page {
-  private Stage stage;
-  private Scene scene;
-  private Parent root; 
+  public Stage stage;
+  public Scene scene;
+  public Parent root; 
   Tournament tournament;
 
   @FXML
-  private Label teamCapacity;
+  public Label teamCapacity;
 
   @FXML
-  private Button editButton;
+  public Button editButton;
 
   @FXML
-  private Label header;
+  public Label header;
 
   @FXML
-  private Button homeButton;
+  public Button homeButton;
 
   @FXML
-  private Label tournamentEndDate;
+  public Label tournamentEndDate;
 
   @FXML
-  private Label tournamentName;
+  public Label tournamentName;
 
   @FXML
-  private Label tournamentSport;
+  public Label tournamentSport;
 
   @FXML
-  private Label tournamentStartDate;
+  public Label tournamentStartDate;
 
   @FXML
-  private Label tournamentStatus;
+  public Label tournamentStatus;
 
   @FXML
-  private Label tournamentType;
+  public Label tournamentType;
 
   @FXML
-  private Button tourProgressButton;
+  public Button tourProgressButton;
 
   @FXML
-  private VBox requestsVBox;
+  public VBox requestsVBox;
 
 
   public void setData(Tournament tournament){
@@ -83,7 +86,7 @@ public class Tournament_page {
 
 
   public void goToHome(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -92,7 +95,7 @@ public class Tournament_page {
 
   public void showTournamentProgress(ActionEvent event) throws IOException {
     if (tournamentType.getText().equals("Elimination")){
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("EliminationTournamentPlayPage.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/EliminationTournamentPlayPage.fxml"));
       root = loader.load();
       EliminationTournament_match_page controller = loader.getController();
       controller.setData(tournament);
@@ -113,7 +116,7 @@ public class Tournament_page {
 
   public void edit(ActionEvent event) throws IOException {
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentInfoPage.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tournamentInfoPage.fxml"));
     root = loader.load();
     TournamentInfo_page controller = loader.getController();
     controller.setData(tournament.getName(), tournament.getSport(), tournament.getEnrollment().getAvailableSeats(), tournament.getStartDate(),

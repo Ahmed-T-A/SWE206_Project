@@ -1,10 +1,12 @@
-package com.example;
+package com.example.pages;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import com.example.Student; 
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -22,38 +24,38 @@ import javafx.stage.Stage;
 
 public class Login_page {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root; 
-    private String studentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
+    public Stage stage;
+    public Scene scene;
+    public Parent root; 
+    public String studentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
     @FXML
-    private Button loginButton;
+    public Button loginButton;
 
     @FXML
-    private Label wrongMessage;
+    public Label wrongMessage;
 
     @FXML
-    private Button bytoo;
+    public Button bytoo;
 
     @FXML
-    private Label password;
+    public Label password;
 
     @FXML
-    private PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
-    private Button signinButton;
+    public Button signinButton;
 
     @FXML
-    private Label username;
+    public Label username;
 
     @FXML
-    private TextField usernameField;
+    public TextField usernameField;
     
     @FXML
-    void goToSignInPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("signin.fxml"));
+    public void goToSignInPage(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/signin.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -61,19 +63,19 @@ public class Login_page {
     }
 
     @FXML
-    void loginUser(ActionEvent event) throws IOException {
+    public void loginUser(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (matchUsernameAndPassword(username, password)){
             if (username.equals("AbdMajed")){
-                Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show(); 
             }
             else{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("studentHomePage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/studentHomePage.fxml"));
                 root = loader.load();
                 StudentHome_page controller = loader.getController();
                 try{

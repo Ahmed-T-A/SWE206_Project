@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,49 +14,49 @@ import java.io.IOException;
 
 public class EliminationTournament_play_page extends EliminationTournament_match_page{
     @FXML
-    TextField quarterFinal1;
+    public TextField quarterFinal1;
     @FXML
-    TextField quarterFinal2;
+    public TextField quarterFinal2;
     @FXML
-    TextField quarterFinal3;
+    public TextField quarterFinal3;
     @FXML
-    TextField quarterFinal4;
+    public TextField quarterFinal4;
     @FXML
-    TextField quarterFinal5;
+    public TextField quarterFinal5;
     @FXML
-    TextField quarterFinal6;
+    public TextField quarterFinal6;
     @FXML
-    TextField quarterFinal7;
+    public TextField quarterFinal7;
     @FXML
-    TextField quarterFinal8;
+    public TextField quarterFinal8;
     @FXML
-    TextField SemiFinal1;
+    public TextField SemiFinal1;
     @FXML
-    TextField SemiFinal2;
+    public TextField SemiFinal2;
     @FXML
-    TextField SemiFinal3;
+    public TextField SemiFinal3;
     @FXML
-    TextField SemiFinal4;
+    public TextField SemiFinal4;
     @FXML
-    TextField Final1;
+    public TextField Final1;
     @FXML
-    TextField Final2;
+    public TextField Final2;
     @FXML
-    TextField Champion;
+    public TextField Champion;
     @FXML
-    Button match1;
+    public Button match1;
     @FXML
-    Button match2;
+    public Button match2;
     @FXML
-    Button match3;
+    public Button match3;
     @FXML
-    Button match4;
+    public Button match4;
     @FXML
-    Button match5;
+    public Button match5;
     @FXML
-    Button match6;
+    public Button match6;
     @FXML
-    Button match7;
+    public Button match7;
 
 
     public boolean checkIfNameIsWritten(TextField txt) {
@@ -66,7 +66,7 @@ public class EliminationTournament_play_page extends EliminationTournament_match
             return true;
     }
     public void setMatch1(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentMatch_page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournamentMatch_page.fxml"));
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
@@ -75,7 +75,7 @@ public class EliminationTournament_play_page extends EliminationTournament_match
         primaryStage.show();
     }
     public void setMatch2(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentMatch_page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournamentMatch_page.fxml"));
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
@@ -84,7 +84,7 @@ public class EliminationTournament_play_page extends EliminationTournament_match
         primaryStage.show();
     }
     public void setMatch3(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentMatch_page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournamentMatch_page.fxml"));
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
@@ -93,7 +93,7 @@ public class EliminationTournament_play_page extends EliminationTournament_match
         primaryStage.show();
     }
     public void setMatch4(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournamentMatch_page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournamentMatch_page.fxml"));
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);

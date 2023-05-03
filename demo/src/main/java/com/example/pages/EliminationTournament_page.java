@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,11 +17,11 @@ import java.io.IOException;
 public class EliminationTournament_page
 {
     @FXML
-    private Stage stage;
+    public Stage stage;
     @FXML
-    private Scene scene;
+    public Scene scene;
     @FXML
-    private Parent root;
+    public Parent root;
 
     String name;
     String ID;
@@ -30,37 +30,37 @@ public class EliminationTournament_page
     String email;
 
     @FXML
-    private Button addParticipantButton;
+    public Button addParticipantButton;
 
     @FXML
-    private TextField addParticipantFeild;
+    public TextField addParticipantFeild;
 
     @FXML
-    private Button homeButton;
+    public Button homeButton;
 
     @FXML
-    private TextField participant1;
+    public TextField participant1;
 
     @FXML
-    private TextField participant2;
+    public TextField participant2;
 
     @FXML
-    private TextField participant3;
+    public TextField participant3;
 
     @FXML
-    private TextField participant4;
+    public TextField participant4;
 
     @FXML
-    private TextField participant5;
+    public TextField participant5;
 
     @FXML
-    private TextField participant6;
+    public TextField participant6;
 
     @FXML
-    private TextField participant7;
+    public TextField participant7;
 
     @FXML
-    private TextField participant8;
+    public TextField participant8;
 
     public void setProb(String name, String ID, String username, String password, String email){
         participant1.setText(name);
@@ -71,7 +71,7 @@ public class EliminationTournament_page
     }
 
     public void startTournamentButton(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournament.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournament.fxml"));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -79,7 +79,7 @@ public class EliminationTournament_page
     }
 
     public void addParticipant(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EliminationTournament.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/EliminationTournament.fxml"));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

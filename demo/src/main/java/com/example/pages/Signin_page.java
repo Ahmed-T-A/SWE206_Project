@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
@@ -14,6 +14,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import com.example.Student;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,52 +30,52 @@ import javafx.stage.Stage;
 
 public class Signin_page {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root; 
-    private String studentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
+    public Stage stage;
+    public Scene scene;
+    public Parent root; 
+    public String studentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
     @FXML
-    private Label ID;
+    public Label ID;
 
     @FXML
-    private TextField emailField;
+    public TextField emailField;
 
     @FXML
-    private TextField IdField;
+    public TextField IdField;
 
     @FXML
-    private Label name;
+    public Label name;
 
     @FXML
-    private TextField nameField;
+    public TextField nameField;
 
     @FXML
-    private Label password;
+    public Label password;
 
     @FXML
-    private PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
-    private Button registerButton;
+    public Button registerButton;
 
     @FXML
-    private Button signinButton;
+    public Button signinButton;
 
     @FXML
-    private Label username;
+    public Label username;
 
     @FXML
-    private TextField usernameField;
+    public TextField usernameField;
 
     @FXML
-    void register() {
+    public void register() {
 
     }
 
     @FXML
-    private void switchToLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+    public void switchToLogin(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -81,7 +83,7 @@ public class Signin_page {
     }
 
     @FXML
-    private void registerAndMoveToLoginPage(ActionEvent event) throws IOException {
+    public void registerAndMoveToLoginPage(ActionEvent event) throws IOException {
         String name = nameField.getText();
         String ID = IdField.getText();
         String username = usernameField.getText();
@@ -90,7 +92,7 @@ public class Signin_page {
         Student student = new Student(name, ID, username, password,email);
         if (studentAlreadyRegistered(student) == false){
             saveToStudentFile("students", student);
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

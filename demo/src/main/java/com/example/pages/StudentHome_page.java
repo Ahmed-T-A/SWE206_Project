@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import java.io.EOFException;
 import java.io.File;
@@ -6,6 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+
+import com.example.Student;
+import com.example.Tournament;
+import com.example.Tournaments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,32 +27,32 @@ import javafx.stage.Stage;
 
 public class StudentHome_page {
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root;
-  private Student student;
-  private Tournament tournament;
+  public Stage stage;
+  public Scene scene;
+  public Parent root;
+  public Student student;
+  public Tournament tournament;
 
   @FXML
-  private HBox availableTour; 
+  public HBox availableTour; 
 
   @FXML
-  private VBox inProgressTour;
+  public VBox inProgressTour;
 
   @FXML
-  private Button logoutButton;
+  public Button logoutButton;
 
   @FXML
-  private Button profileButton;
+  public Button profileButton;
 
   @FXML
-    private Button makeRequestButton;
+  public Button makeRequestButton;
 
   @FXML
-  private TextField nameOfTournamentField;
+  public TextField nameOfTournamentField;
 
   @FXML
-  private Label studentNameLabel;
+  public Label studentNameLabel;
 
   public void setData(Student student, String name)
   {
@@ -57,8 +61,8 @@ public class StudentHome_page {
   }
 
   @FXML
-  void logout(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+  public void logout(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);

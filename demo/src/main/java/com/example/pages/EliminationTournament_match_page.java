@@ -1,6 +1,9 @@
-package com.example;
+package com.example.pages;
 
 import java.io.IOException;
+
+import com.example.Tournament;
+import com.example.pages.Tournament_page;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,43 +22,43 @@ public class EliminationTournament_match_page {
 
     int seats;
     int rounds;
-    private Stage stage;
-    private Scene scene;
-    private Parent root; 
+    public Stage stage;
+    public Scene scene;
+    public Parent root; 
     Tournament tournament;
 
     @FXML
-    private HBox fifthRound;
+    public HBox fifthRound;
 
     @FXML
-    private HBox firstRound;
+    public HBox firstRound;
 
     @FXML
-    private HBox fourthRound;
+    public HBox fourthRound;
 
     @FXML
-    private HBox lastRound;
+    public HBox lastRound;
 
     @FXML
-    private HBox secondRound;
+    public HBox secondRound;
 
     @FXML
-    private HBox seventhRound;
+    public HBox seventhRound;
 
     @FXML
-    private HBox sixthRound;
+    public HBox sixthRound;
 
     @FXML
-    private HBox thirdRound;
+    public HBox thirdRound;
 
     @FXML
-    private Label tournamentNameLabel;
+    public Label tournamentNameLabel;
 
     @FXML
-    private Button backToHome;
+    public Button backToHome;
 
     @FXML
-    private Button backTourInfo;
+    public Button backTourInfo;
 
 
     public void setData(Tournament tournament){
@@ -145,7 +148,7 @@ public class EliminationTournament_match_page {
 
     @FXML
     public void goToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -154,7 +157,7 @@ public class EliminationTournament_match_page {
 
     @FXML
     public void goToTourInfo (ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tournamentPage.fxml"));
         root = loader.load();
         Tournament_page controller = loader.getController();
         controller.setData(tournament);

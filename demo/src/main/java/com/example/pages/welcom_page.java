@@ -1,7 +1,6 @@
-package com.example;
+package com.example.pages;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,19 +12,19 @@ import javafx.stage.Stage;
 
 public class welcom_page {
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root; 
+  public Stage stage;
+  public Scene scene;
+  public Parent root; 
 
   @FXML
-  private Button login;
+  public Button login;
 
   @FXML
-  private Button signin;
+  public Button signin;
 
   @FXML
-  void goToLogin(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+  public void goToLogin(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -33,8 +32,8 @@ public class welcom_page {
   }
 
   @FXML
-  void goToSignin(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("signin.fxml"));
+  public void goToSignin(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/signin.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);

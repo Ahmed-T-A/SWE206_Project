@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +10,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.Enrollment;
+import com.example.Tournament;
+import com.example.TournamentProgress;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,54 +34,54 @@ import javafx.stage.Stage;
 
 public class TournamentInfo_page {
 
-  private static final long serialVersionUID = -3376593017416497415L;
+  public static final long serialVersionUID = -3376593017416497415L;
 
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root; 
+  public Stage stage;
+  public Scene scene;
+  public Parent root; 
   String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
     @FXML
-    private TextField availableSeatsField;
+    public TextField availableSeatsField;
 
     @FXML
-    private CheckBox archivedCheck;
+    public CheckBox archivedCheck;
 
     @FXML
-    private CheckBox statusCheck;
+    public CheckBox statusCheck;
 
     @FXML
-    private Button backToHome;
+    public Button backToHome;
 
     @FXML
-    private ComboBox<String> comBox;
+    public ComboBox<String> comBox;
 
-    String tournamentType;
+    public String tournamentType;
     
     @FXML
-    private Button createButton;
+    public Button createButton;
 
     @FXML
-    private TextField endDateField;
+    public TextField endDateField;
 
     @FXML
-    private TextField startDateField;
+    public TextField startDateField;
 
     @FXML
-    private CheckBox teamBasedButton;
+    public CheckBox teamBasedButton;
 
     @FXML
-    private TextField teamCapacityField;
+    public TextField teamCapacityField;
 
     @FXML
-    private TextField tournamentNameField;
+    public TextField tournamentNameField;
 
     @FXML
-    private TextField tournamentSportField;
+    public TextField tournamentSportField;
 
     @FXML
-    private AnchorPane welcomeScene;
+    public AnchorPane welcomeScene;
 
     public void setData(String name, String sport, int availavleSeats,String startDate, String endDate,
      int teamCapacity,String tourType, boolean teamBased, boolean status, boolean isArchived)
@@ -106,7 +110,7 @@ public class TournamentInfo_page {
     }
 
     @FXML
-    void comboItems(ActionEvent event) throws IOException {
+    public void comboItems(ActionEvent event) throws IOException {
       tournamentType = comBox.getValue();
     }
 
@@ -131,7 +135,7 @@ public class TournamentInfo_page {
 
     @FXML
     public void backToHome(ActionEvent event) throws IOException{
-      Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
       stage = (Stage)((Node)event.getSource()).getScene().getWindow();
       scene = new Scene(root);
       stage.setScene(scene);

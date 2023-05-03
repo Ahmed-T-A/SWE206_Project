@@ -1,4 +1,4 @@
-package com.example;
+package com.example.pages;
 
 import java.io.EOFException;
 import java.io.File;
@@ -10,6 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import com.example.Tournament;
+import com.example.Tournaments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,43 +34,43 @@ import javafx.stage.Stage;
 
 public class Home_page extends AnchorPane{  
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root; 
+  public Stage stage;
+  public Scene scene;
+  public Parent root; 
   String savedTournamentPath = "U:\\Term222\\SWE206\\SWE206_Project\\";
 
   
   @FXML
-  private VBox archevedTournaments;
+  public VBox archevedTournaments;
 
   @FXML
-  private VBox tournamentsInProgress;
+  public VBox tournamentsInProgress;
 
   @FXML
-  private VBox availableTournaments;
+  public VBox availableTournaments;
 
   @FXML
-  private Button loadTournamentButton;
+  public Button loadTournamentButton;
 
   @FXML
-  private ScrollPane scrollPane;
+  public ScrollPane scrollPane;
 
   @FXML
-  private Button addingTournamentButton;
+  public Button addingTournamentButton;
 
   @FXML
-  private Button logoutButton;
+  public Button logoutButton;
 
   @FXML
-  private Button tourButton;  
+  public Button tourButton;  
 
   @FXML
-  private Button showStudentProfileButton;
+  public Button showStudentProfileButton;
 
   //------------------
   @FXML
-  private void logoutButton(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+  public void logoutButton(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -95,7 +98,7 @@ public class Home_page extends AnchorPane{
         Tournament tournament = inProgress.get(i);
         button.setOnAction(e -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tournamentPage.fxml"));
             root = loader.load();
             Tournament_page controller = loader.getController();
             controller.setData(tournament);
@@ -118,7 +121,7 @@ public class Home_page extends AnchorPane{
         Tournament tournament = available.get(i);
         button.setOnAction(e -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tournamentPage.fxml"));
             root = loader.load();
             Tournament_page controller = loader.getController();
             controller.setData(tournament);
@@ -141,7 +144,7 @@ public class Home_page extends AnchorPane{
         Tournament tournament = previous.get(i);
         button.setOnAction(e -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tournamentPage.fxml"));
             root = loader.load();
             Tournament_page controller = loader.getController();
             controller.setData(tournament);
@@ -192,8 +195,8 @@ public class Home_page extends AnchorPane{
   }
 
   @FXML
-  private void addingTournamentButton(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("tournamentInfoPage.fxml"));
+  public void addingTournamentButton(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/tournamentInfoPage.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -201,8 +204,8 @@ public class Home_page extends AnchorPane{
   }
 
   @FXML
-  private void showStudentProfileButton(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("showStudentProfilePage.fxml"));
+  public void showStudentProfileButton(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/showStudentProfilePage.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
