@@ -31,7 +31,7 @@ public class StudentHome_page {
   public Scene scene;
   public Parent root;
   public Student student;
-  public Tournament tournament;
+  // public Tournament tournament;
 
   @FXML
   public HBox availableTour; 
@@ -120,23 +120,10 @@ public class StudentHome_page {
                 for(int i = 0; i < available.size(); i++){
                   Button button = addToHbox(available.get(i).getName(), available.get(i).getSport(), 
                   available.get(i).isTeamBased(), available.get(i).getEnrollment().getAvailableSeats());
-                  // Tournament tournament = available.get(i);
-                  // button.setOnAction(e -> {
-                  //   try {
-                  //       FXMLLoader loader = new FXMLLoader(getClass().getResource("tournamentPage.fxml"));
-                  //       root = loader.load();
-                  //       Tournament_page controller = loader.getController();
-                  //       controller.setData(tournament);
-
-                  //       // Parent root = FXMLLoader.load(getClass().getResource("tournamentPage.fxml"));
-                  //       stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                  //       scene = new Scene(root);
-                  //       stage.setScene(scene);
-                  //       stage.show();
-                  //   } catch (IOException em) {
-                  //       System.out.println(em.getMessage());
-                  //   }
-                  // });
+                  Tournament tournament = available.get(i);
+                  button.setOnAction(e -> {
+                    nameOfTournamentField.setText(tournament.getName());
+                  });
                   availableTour.setMargin(button, new Insets(20, 10, 10, 10));
                   availableTour.getChildren().add(button);
                 }
@@ -169,24 +156,23 @@ public class StudentHome_page {
   @FXML
   public void makeRequest(ActionEvent event) throws IOException {
     File file = new File("U:\\Term222\\SWE206\\SWE206_Project\\tournaments.dat");
-    readSpecificTournament(file, nameOfTournamentField.getText());
+    Tournament tournament = readSpecificTournament(file, nameOfTournamentField.getText());
     tournament.makeRequest(student);
-    tournament.saveToFile("tournaments");
+    tournament.saveTour(file);
   }
 
-  public void readSpecificTournament(File file, String tournamentName){
+  public Tournament readSpecificTournament(File file, String tournamentName){
+    Tournament tournament = null;
     try{
       FileInputStream fileInput = new FileInputStream(file);
       ObjectInputStream input = new ObjectInputStream(fileInput);
-      Tournament tournament = (Tournament) input.readObject();
-      while(tournament != null){
-        if (tournament.getName().equals(tournamentName)){
-          this.tournament = tournament;
-          break;
-        }
+      Tournaments tournaments = (Tournaments) input.readObject();
+      ArrayList<Tournament> available = tournaments.getAvailableTournaments();
 
-        ObjectInputStream input2 = new ObjectInputStream(fileInput);
-        tournament = (Tournament) input2.readObject();
+      for (int i = 0; i < available.size(); i++){
+        if (tournamentName.equals(available.get(i).getName())){
+          return tournament = available.get(i);
+        }
       }
 
       input.close();
@@ -197,5 +183,6 @@ public class StudentHome_page {
     catch (ClassNotFoundException es){
       System.out.println(es.getMessage());
     }
+    return tournament;
   }
 }

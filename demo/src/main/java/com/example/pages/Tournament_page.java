@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
+import com.example.Student;
 import com.example.Tournament;
 
 import javafx.event.ActionEvent;
@@ -18,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -76,12 +79,21 @@ public class Tournament_page {
     tournamentStatus.setText(status);
 
     Label request = new Label();
-    // String n = tournament.getEnrollment().getRequests().get(0).toString();
-    // request.setText(n);
-    request.setStyle("-fx-text-fill: #181818; -fx-font: normal bold 10px 'AGA Arabesque';");
-    requestsVBox.setMargin(request, new Insets(10, 10, 10, 10));   
-    requestsVBox.setAlignment(Pos.CENTER);
-    requestsVBox.getChildren().add(request);
+    ArrayList<Object> n = tournament.getEnrollment().getRequests();
+    requestsVBox.setAlignment(Pos.CENTER_LEFT);
+    for (int i = 0; i < n.size(); i++){
+      HBox labelAndButton = new HBox();
+      labelAndButton.setAlignment(Pos.CENTER_RIGHT);
+      Button accept = new Button("Accept");
+      accept.setStyle("-fx-text-fill: #ffffff; -fx-font: normal bold 11px 'AGA Arabesque'; -fx-background-color: #106b5c; -fx-text-alignment: center;}");
+      Student student = (Student) n.get(i);
+      Label requestLabel = new Label(student.getName());
+      labelAndButton.getChildren().addAll(requestLabel, accept);
+      labelAndButton.setMargin(requestLabel, new Insets(5, 5, 5, 10));
+      requestsVBox.getChildren().add(labelAndButton);
+      requestLabel.setStyle("-fx-text-fill:  #2f5b2a; -fx-font: normal bold 17px 'Franklin Gothic Heavy';");
+      requestsVBox.setMargin(requestLabel, new Insets(0, 10, 0, 10));   
+    }
   }
 
 

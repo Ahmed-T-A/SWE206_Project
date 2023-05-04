@@ -83,15 +83,14 @@ public class Login_page {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/studentHomePage.fxml"));
                 root = loader.load();
                 StudentHome_page controller = loader.getController();
-                controller.setData2(Url.getName(username, password));
-                // try{
-                //     Student student = getSpecificStudent(username);
-                //     controller.setData(student, student.getName());
-                // }
-                // catch (ClassNotFoundException e){
-                //     System.out.println(e.getMessage());
-                // }
-                // Parent root = FXMLLoader.load(getClass().getResource("/com/example/studentHomePage.fxml"));
+                // controller.setData2(Url.getName(username, password));
+                try{
+                    Student student = getSpecificStudent(username);
+                    controller.setData(student, student.getName());
+                }
+                catch (ClassNotFoundException e){
+                    System.out.println(e.getMessage());
+                }
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -175,8 +174,7 @@ public class Login_page {
                 if (student.getUsername().equals(username)){
                     return student;
                 }
-                ObjectInputStream input2 = new ObjectInputStream(fileInput);
-                student = (Student) input2.readObject();
+                student = (Student) input.readObject();
             }
             input.close();
             return new Student(username, username, username, username, username);

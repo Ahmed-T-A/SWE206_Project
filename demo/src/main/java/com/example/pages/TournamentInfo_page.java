@@ -126,7 +126,6 @@ public class TournamentInfo_page {
       boolean archived = archivedCheck.isSelected() ? true : false;
       String teamCapacity = teamCapacityField.getText();
       Enrollment enrollment = new Enrollment(Integer.parseInt(availableSeatsField.getText()), 0);
-      // enrollment.request(new Student("Ahmed", "200000", "kfv", "tourType", "teamCapacity"));
       TournamentProgress tournamentProgress = new TournamentProgress();
       Tournament tournament = new Tournament(name, sport, startDate, endDate, tourType, status, archived, teamBased, Integer.parseInt(teamCapacity), enrollment, tournamentProgress);
       File file = new File(savedTournamentPath + "tournaments.dat");
