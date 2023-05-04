@@ -67,7 +67,7 @@
       </Button>
       <AnchorPane prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #138D43;">
          <children>
-            <Label layoutX="14.0" layoutY="9.0" text="Home Page" textAlignment="CENTER" textFill="WHITE">
+            <Label layoutX="238.0" layoutY="9.0" text="Home Page" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="22.0" />
                </font>
@@ -77,6 +77,16 @@
                   <Font name="AGA Arabesque" size="12.0" />
                </font>
             </Button>
+            <Label layoutX="14.0" layoutY="9.0" text="Hello: " textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="adminNameLabel" layoutX="82.0" layoutY="9.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="22.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

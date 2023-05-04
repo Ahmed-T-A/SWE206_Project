@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import com.example.Student; 
+import com.example.Student;
+import com.example.Url;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -66,9 +67,13 @@ public class Login_page {
     public void loginUser(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if (matchUsernameAndPassword(username, password)){
-            if (username.equals("AbdMajed")){
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
+        if (Url.getType(username, password) != null){
+            if (Url.getType(username, password).equals("admin")){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/homePage.fxml"));
+                root = loader.load();
+                Home_page controller = loader.getController();
+                controller.setData(username);
+
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -78,14 +83,15 @@ public class Login_page {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/studentHomePage.fxml"));
                 root = loader.load();
                 StudentHome_page controller = loader.getController();
-                try{
-                    Student student = getSpecificStudent(username);
-                    controller.setData(student, student.getName());
-                }
-                catch (ClassNotFoundException e){
-                    System.out.println(e.getMessage());
-                }
-            
+                controller.setData2(Url.getName(username, password));
+                // try{
+                //     Student student = getSpecificStudent(username);
+                //     controller.setData(student, student.getName());
+                // }
+                // catch (ClassNotFoundException e){
+                //     System.out.println(e.getMessage());
+                // }
+                // Parent root = FXMLLoader.load(getClass().getResource("/com/example/studentHomePage.fxml"));
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -96,6 +102,36 @@ public class Login_page {
         else{
             wrongMessage.setText("Wrong Data Input");
         }
+        // if (matchUsernameAndPassword(username, password)){
+        //     if (username.equals("AbdMajed")){
+        //         Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
+        //         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //         scene = new Scene(root);
+        //         stage.setScene(scene);
+        //         stage.show(); 
+        //     }
+        //     else{
+        //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/studentHomePage.fxml"));
+        //         root = loader.load();
+        //         StudentHome_page controller = loader.getController();
+        //         try{
+        //             Student student = getSpecificStudent(username);
+        //             controller.setData(student, student.getName());
+        //         }
+        //         catch (ClassNotFoundException e){
+        //             System.out.println(e.getMessage());
+        //         }
+            
+        //         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //         scene = new Scene(root);
+        //         stage.setScene(scene);
+        //         stage.show(); 
+        //     }
+          
+        // }
+        // else{
+        //     wrongMessage.setText("Wrong Data Input");
+        // }
     }
 
     public boolean matchUsernameAndPassword(String username, String password){

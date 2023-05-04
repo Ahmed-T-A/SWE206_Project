@@ -54,6 +54,10 @@ public class StudentHome_page {
   @FXML
   public Label studentNameLabel;
 
+  public void setData2(String name){
+    studentNameLabel.setText(name);
+  }
+
   public void setData(Student student, String name)
   {
     studentNameLabel.setText(name);

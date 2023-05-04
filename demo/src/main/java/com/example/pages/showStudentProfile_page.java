@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import com.example.Student;
+import com.example.Url;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,8 +47,8 @@ public class showStudentProfile_page {
   public VBox studentTournaments;
 
   @FXML
-  public void goToHome(final ActionEvent event) throws IOException {
-    final Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
+  public void goToHome(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/com/example/homePage.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -55,36 +56,30 @@ public class showStudentProfile_page {
   }
 
   @FXML
-  public void searchButton(final ActionEvent event) throws IOException {
-    final Student student = readStudentFile(studentNameField.getText());
-    studentNameLabel.setText(student.getName());
-    StudentIDLable.setText(student.getID());
+  public void searchButton(ActionEvent event) throws IOException {
+    Student student = readStudentFile(studentNameField.getText());
+
+    if (student != null){
+      StudentIDLable.setText(student.getID());
+      studentNameLabel.setText(student.getName());
+    }
+
   }
 
-  public Student readStudentFile(final String name){
-    try{
-      final File file = new File(studentPath + "students.dat");
-      final FileInputStream fileInput = new FileInputStream(file);
-      final ObjectInputStream input = new ObjectInputStream(fileInput);
-      Student student = (Student) input.readObject();
-      while(student != null){
-        if (student.getName().equals(name))
-          return student;
-
-        final ObjectInputStream input2 = new ObjectInputStream(fileInput);
-        student = (Student) input2.readObject();
-      }
-      input.close();
-      return new Student(name, name, name, name, name);
-    }
-    catch(final FileNotFoundException e){
-      return new Student(name, name, name, name, name);
-    }
-    catch (final IOException es){
-      return new Student(name, name, name, name, name);
-    }
-    catch (final ClassNotFoundException em){
-      return new Student(name, name, name, name, name);
-    }
+  public Student readStudentFile(String name){
+    Student student = null;
+        try (FileInputStream fileInputStream = new FileInputStream(new File(studentPath + "students.dat"));
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+            while (fileInputStream.available() > 0) {
+                Student obj = (Student) objectInputStream.readObject();
+                if (obj.getName().equals(name)) {
+                    student = obj;
+                    break;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return student;
   }
 }

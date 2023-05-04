@@ -44,6 +44,9 @@ public class Home_page extends AnchorPane{
   public VBox archevedTournaments;
 
   @FXML
+  public Label adminNameLabel;
+
+  @FXML
   public VBox tournamentsInProgress;
 
   @FXML
@@ -68,6 +71,10 @@ public class Home_page extends AnchorPane{
   public Button showStudentProfileButton;
 
   //------------------
+  public void setData(String name){
+    adminNameLabel.setText(name);
+  }
+
   @FXML
   public void logoutButton(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("/com/example/login.fxml"));
@@ -76,6 +83,7 @@ public class Home_page extends AnchorPane{
     stage.setScene(scene);
     stage.show(); 
   }
+
   @FXML
   public void initialize(){
     File file = new File(savedTournamentPath + "tournaments.dat");
