@@ -7,28 +7,30 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pages.EliminationTournament_match_page">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pages.EliminationTournament_match_page">
    <children>
-      <HBox fx:id="firstRound" layoutY="50.0" prefHeight="32.0" prefWidth="1100.0">
+      <HBox fx:id="firstRound" layoutY="50.0" prefHeight="56.0" prefWidth="1200.0">
          <padding>
             <Insets left="5.0" right="5.0" />
          </padding></HBox>
-      <HBox fx:id="secondRound" layoutY="96.0" prefHeight="32.0" prefWidth="1099.0">
+      <HBox fx:id="secondRound" layoutY="126.0" prefHeight="49.0" prefWidth="1200.0">
          <padding>
             <Insets left="5.0" right="5.0" />
-         </padding></HBox>
-      <HBox fx:id="thirdRound" layoutY="143.0" prefHeight="32.0" prefWidth="1100.0">
+         </padding>
+      </HBox>
+      <HBox fx:id="thirdRound" layoutY="206.0" prefHeight="49.0" prefWidth="1200.0">
          <padding>
             <Insets left="5.0" right="5.0" />
-         </padding></HBox>
-      <HBox fx:id="fourthRound" layoutY="190.0" prefHeight="32.0" prefWidth="1102.0" />
-      <HBox fx:id="fifthRound" layoutY="235.0" prefHeight="32.0" prefWidth="1100.0" />
-      <HBox fx:id="sixthRound" layoutY="280.0" prefHeight="32.0" prefWidth="1100.0" />
-      <HBox fx:id="seventhRound" layoutY="327.0" prefHeight="32.0" prefWidth="1101.0" />
-      <HBox fx:id="lastRound" layoutY="370.0" prefHeight="32.0" prefWidth="1101.0" />
-      <AnchorPane prefHeight="49.0" prefWidth="1106.0" style="-fx-background-color: #138D43;">
+         </padding>
+      </HBox>
+      <HBox fx:id="fourthRound" layoutY="276.0" prefHeight="49.0" prefWidth="1200.0" />
+      <HBox fx:id="fifthRound" layoutY="347.0" prefHeight="49.0" prefWidth="1200.0" />
+      <HBox fx:id="sixthRound" layoutX="-9.0" layoutY="415.0" prefHeight="49.0" prefWidth="1209.0" />
+      <HBox fx:id="seventhRound" layoutY="485.0" prefHeight="49.0" prefWidth="1200.0" />
+      <HBox fx:id="lastRound" layoutY="551.0" prefHeight="49.0" prefWidth="1200.0" />
+      <AnchorPane prefHeight="49.0" prefWidth="1200.0" style="-fx-background-color: #138D43;">
          <children>
-            <Label fx:id="tournamentNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="474.0" layoutY="9.0" text="TouName" textFill="WHITE">
+            <Label fx:id="tournamentNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="549.0" layoutY="12.0" text="TouName" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="22.0" />
                </font>

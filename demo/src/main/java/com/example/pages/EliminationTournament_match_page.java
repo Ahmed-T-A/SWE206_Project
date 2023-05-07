@@ -8,6 +8,7 @@ import com.example.pages.Tournament_page;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -60,23 +61,47 @@ public class EliminationTournament_match_page {
     @FXML
     public Button backTourInfo;
 
-
+    
+    public static void addMember(Object obj){
+        
+    }
     public void setData(Tournament tournament){
         this.tournament = tournament;
         tournamentNameLabel.setText(tournament.getName());
         this.seats = tournament.getEnrollment().getSeats();
         rounds = log2(seats);
         addMatches(rounds);
-        firstRound.setAlignment(Pos.CENTER);
-        secondRound.setAlignment(Pos.CENTER);
-        thirdRound.setAlignment(Pos.CENTER);
+        firstRound.setAlignment(Pos.CENTER);  
+        secondRound.setAlignment(Pos.CENTER); 
+        thirdRound.setAlignment(Pos.CENTER); 
         fourthRound.setAlignment(Pos.CENTER);
         fifthRound.setAlignment(Pos.CENTER);
         sixthRound.setAlignment(Pos.CENTER);
         seventhRound.setAlignment(Pos.CENTER);
         lastRound.setAlignment(Pos.CENTER);
 
-        TextField match = new TextField("name");
+        if (seats == 8){
+            firstRound.setSpacing(50);
+            secondRound.setSpacing(200);
+            thirdRound.setSpacing(500);
+        }
+        else if (seats == 16){
+            secondRound.setSpacing(50);
+            thirdRound.setSpacing(200);
+            fourthRound.setSpacing(500);
+        }
+        else if (seats == 32){
+            thirdRound.setSpacing(50);
+            fourthRound.setSpacing(200);
+            fifthRound.setSpacing(500);
+        }
+        else if (seats == 64){
+            fourthRound.setSpacing(50);
+            fifthRound.setSpacing(200);
+            sixthRound.setSpacing(500);
+        }
+
+        Button match = new Button("Ahmed talalalla");
         Label winnerString = new Label("Winner") ;
         winnerString.setStyle("-fx-text-fill: #908700;  -fx-font: normal bold 20px 'AGA Arabesque';}");
         switch (rounds + 1) {
@@ -90,13 +115,16 @@ public class EliminationTournament_match_page {
             case 8: lastRound.getChildren().addAll(match, winnerString); break;
             default: break;
         }
+        
     }
 
     public void addMatches(int rounds){
         int round = seats;
         for(int i = 1; i <= rounds; i++){
             for (int z = 0; z < round; z++){
-                TextField match = new TextField("name");
+                Button match = new Button("Ahmed talalalla");
+                // match.setMaxWidth(Double.MAX_VALUE);
+                match.setWrapText(true);
                 switch (i) {
                     case 1:  this.firstRound.getChildren().add(match); break;
                     case 2:  this.secondRound.getChildren().add(match); break;

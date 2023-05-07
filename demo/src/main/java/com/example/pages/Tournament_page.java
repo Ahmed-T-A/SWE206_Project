@@ -93,6 +93,10 @@ public class Tournament_page {
       requestsVBox.getChildren().add(labelAndButton);
       requestLabel.setStyle("-fx-text-fill:  #2f5b2a; -fx-font: normal bold 17px 'Franklin Gothic Heavy';");
       requestsVBox.setMargin(requestLabel, new Insets(0, 10, 0, 10));   
+      accept.setOnAction(e ->{
+        tournament.acceptRequest(student);
+        requestsVBox.getChildren().remove(labelAndButton);
+      });
     }
   }
 

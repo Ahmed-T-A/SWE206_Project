@@ -145,6 +145,11 @@ public class Tournament implements Serializable {
     enrollment.request(student);
   }
 
+  public void acceptRequest(Student student){
+    acceptedMembers.add(student);
+    enrollment.deleteStudentRequest(student);
+  }
+
   public String getEnrollmentStatistics() {
     return enrollment.toString();
   }

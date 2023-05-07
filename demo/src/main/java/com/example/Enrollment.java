@@ -36,6 +36,9 @@ public class Enrollment implements Serializable {
   public ArrayList<Object> getRequests() {
     return requests;
   }
+  public void deleteStudentRequest(Student student){
+    requests.remove(student);
+  }
   public void incrementRegisteredSeats() {
     this.registeredSeats++;
     availableSeats = seats - registeredSeats;
