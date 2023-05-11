@@ -145,6 +145,11 @@ public class Tournament implements Serializable {
     enrollment.request(student);
   }
 
+  public void acceptRequest(Student student){
+    acceptedMembers.add(student);
+    enrollment.deleteStudentRequest(student);
+  }
+
   public String getEnrollmentStatistics() {
     return enrollment.toString();
   }
@@ -159,6 +164,88 @@ public class Tournament implements Serializable {
 
   public void setProgress(TournamentProgress progress) {
     this.progress = progress;
+  }
+
+  public void saveTour(File file){
+    if(file.exists()){
+      try{
+        FileInputStream fileInput = new FileInputStream(file);
+        ObjectInputStream input = new ObjectInputStream(fileInput);
+        Tournaments tournaments = (Tournaments) input.readObject();
+        ArrayList<Tournament> available = tournaments.getAvailableTournaments();
+        ArrayList<Tournament> inProgress = tournaments.getInProgressTournaments();
+        ArrayList<Tournament> previous = tournaments.getPreviousTournaments();
+        boolean flag = true;
+        if(status){
+          for(int i = 0; i < available.size(); i++){
+            if(name.equals(available.get(i).name)){
+              available.remove(i);
+              available.add(i, this);
+              flag = false;
+              break;
+            }
+          }
+          if(flag)
+            available.add(this);
+          tournaments.setAvailableTournaments(available);
+        }
+        else if(archived){
+          for(int i = 0; i < previous.size(); i++){
+            if(name.equals(previous.get(i).name)){
+              previous.remove(i);
+              previous.add(i, this);
+              flag = false;
+              break;
+            }
+          }
+          if(flag)
+            previous.add(this);
+          tournaments.setPreviousTournaments(previous);
+        }
+        else{
+          for(int i = 0; i < inProgress.size(); i++){
+            if(name.equals(inProgress.get(i).name)){
+              inProgress.remove(i);
+              inProgress.add(i, this);
+              flag = false;
+              break;
+            }
+          }
+          if(flag)
+            inProgress.add(this);
+          tournaments.setInProgressTournaments(inProgress);
+        }
+        input.close();
+        FileOutputStream fileOutput = new FileOutputStream(file);
+        ObjectOutputStream writer = new ObjectOutputStream(fileOutput);
+        writer.writeObject(tournaments);
+        writer.close();
+      }
+      catch(Exception ex){
+        System.out.println(ex);
+      }
+    }
+    else{
+      Tournaments tournaments = new Tournaments();
+      if(status){
+        tournaments.addToAvailavle(this);
+      }
+      else if(archived){
+        tournaments.addToPrevious(this);
+      }
+      else{
+        tournaments.addToinProgree(this);
+      }
+      try {
+        FileOutputStream fileOutput = new FileOutputStream(file);
+        ObjectOutputStream writer = new ObjectOutputStream(fileOutput);
+        writer.writeObject(tournaments);
+        writer.close();
+      } 
+      catch (Exception ex) {
+        System.out.println(ex);
+      }
+    }
   }
 
   public void saveToFile(String fileName){
@@ -183,6 +270,7 @@ public class Tournament implements Serializable {
       while(tournament != null){
         if(getName().equals(tournament.getName())){
           objectInputStream.close();
+          System.out.println("exists");
           return true;
         }
         ObjectInputStream objectInputStream2 = new ObjectInputStream(fileInputStream);
@@ -192,52 +280,59 @@ public class Tournament implements Serializable {
       return false;
     }
     catch(ClassNotFoundException e){
+      System.out.println("existance error 1");
       System.out.println(e.getMessage());
       return false;
     }
     catch(IOException e){
+      System.out.println("existance error 1");
       System.out.println(e.getMessage());
       return false;
     }
   }
 
-  public void saveAndRemoveToFile(String fileName){
-    try {
-      ArrayList<Tournament> arrayList = new ArrayList<Tournament>();
-      File file = new File(savedTournamentPath + fileName + ".dat");
-      FileInputStream fileInputStream =new FileInputStream(file);
-      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-      Tournament tournament = (Tournament) objectInputStream.readObject();
-      while(tournament != null){
-        if(!getName().equals(tournament.getName())){
-          arrayList.add(tournament);
-        }
-        ObjectInputStream objectInputStream2 = new ObjectInputStream(fileInputStream);
-        tournament = (Tournament) objectInputStream2.readObject();
-      }
-      objectInputStream.close();
-      arrayList.add(this);
-      saveToFile(fileName, arrayList);
-    } catch (Exception e) {
-      // TODO: handle exception
-    }
-  }
+  // public void saveAndRemoveToFile(String fileName){
+  //   SLL<Tournament> sll = new SLL<Tournament>();
+  //   sll.addToHead(this);
+  //   try {
+  //     File file = new File(savedTournamentPath + fileName + ".dat");
+  //     FileInputStream fileInputStream =new FileInputStream(file);
+  //     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+  //     Tournament tournament = (Tournament) objectInputStream.readObject();
+  //     objectInputStream.close();
+  //     while(tournament != null){
+  //       if(!getName().equals(tournament.getName())){
+  //         sll.addToHead(tournament);
+  //         System.out.println("adding "+tournament.name);
+  //       }
+  //       else{
+  //         System.out.println("ignored"+tournament.name);
+  //       }
+  //       ObjectInputStream objectInputStream2 = new ObjectInputStream(fileInputStream);
+  //       tournament = (Tournament) objectInputStream2.readObject();
+  //     }
+  //   } catch (Exception e) {
+  //     saveToFile(fileName, sll);
+  //     System.out.println("saved");
+  //     // TODO: handle exception
+  //   }
+  // }
 
-  public void saveToFile(String fileName, ArrayList<Tournament> arrayList){
-    try {
-      File file = new File(savedTournamentPath + fileName + ".dat");
-      file.delete();
-      File file2 = new File(savedTournamentPath + fileName + ".dat");
-      FileOutputStream fileOutputStream = new FileOutputStream(file2);
-      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-      for(int i = 0; i < arrayList.size(); i++){
-        objectOutputStream.writeObject(arrayList.remove(arrayList.get(i)));
-      }
-      objectOutputStream.close();
-    } catch (Exception e) {
-      // TODO: handle exception
-    }
-  }
+  // public void saveToFile(String fileName, SLL<Tournament> sll){
+  //   try {
+  //     File file = new File(savedTournamentPath + fileName + ".dat");
+  //     FileOutputStream fileOutputStream = new FileOutputStream(file);
+  //     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+  //     while(!sll.isEmpty()){
+  //       System.out.println("xx"+sll.head.info.name);
+  //       objectOutputStream.writeObject(sll.deleteFromHead());
+  //     }
+  //     System.out.println("realy done");
+  //     objectOutputStream.close();
+  //   } catch (Exception e) {
+  //     // TODO: handle exception
+  //   }
+  // }
 
   // public void saveToFile(String fileName) throws IOException {
   //   File file = new File(fileName);

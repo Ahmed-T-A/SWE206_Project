@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Login_page">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pages.Login_page">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="247.0" style="-fx-background-color: #138D43;" />
       <AnchorPane prefHeight="400.0" prefWidth="405.0">
@@ -31,7 +31,7 @@
                </font>
             </Button>
             <Label layoutX="92.0" layoutY="303.0" prefHeight="27.0" prefWidth="130.0" text="Don't have an account?" />
-            <Button fx:id="signinButton" layoutX="213.0" layoutY="305.0" mnemonicParsing="false" onAction="#goToSignInPage" style="-fx-background-color: transperance;" text="Sign in" textFill="#3316b3">
+            <Button fx:id="signinButton" layoutX="213.0" layoutY="305.0" mnemonicParsing="false" onAction="#goToSignInPage" style="-fx-background-color: transperance;" text="Sign up" textFill="#3316b3">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>

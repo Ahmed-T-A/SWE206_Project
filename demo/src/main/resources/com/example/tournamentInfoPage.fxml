@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.TournamentInfo_page">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pages.TournamentInfo_page">
    <children>
       <AnchorPane prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: #138D43;">
          <children>
@@ -64,7 +64,7 @@
       <TextField fx:id="startDateField" layoutX="23.0" layoutY="181.0" />
       <TextField fx:id="endDateField" layoutX="209.0" layoutY="181.0" />
       <TextField fx:id="teamCapacityField" layoutX="403.0" layoutY="181.0" />
-      <Label fx:id="tournamentType" layoutX="213.0" layoutY="214.0" text="Tournament Type">
+      <Label layoutX="213.0" layoutY="214.0" text="Tournament Type">
          <font>
             <Font size="18.0" />
          </font>

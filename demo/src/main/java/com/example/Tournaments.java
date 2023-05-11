@@ -1,8 +1,9 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tournaments {
+public class Tournaments implements Serializable {
   //---------------
   private ArrayList<Tournament> availableTournaments;
   private ArrayList<Tournament> inProgressTournaments;
@@ -42,4 +43,24 @@ public class Tournaments {
   public void removeFromPrevious(Tournament a){
     previousTournaments.remove(a);
   }
+  public ArrayList<Tournament> getAvailableTournaments() {
+    return availableTournaments;
+  }
+  public ArrayList<Tournament> getInProgressTournaments() {
+    return inProgressTournaments;
+  }
+  public ArrayList<Tournament> getPreviousTournaments() {
+    return previousTournaments;
+  }
+  public void setAvailableTournaments(ArrayList<Tournament> availableTournaments) {
+    this.availableTournaments = availableTournaments;
+  }
+  public void setInProgressTournaments(ArrayList<Tournament> inProgressTournaments) {
+    this.inProgressTournaments = inProgressTournaments;
+  }
+  public void setPreviousTournaments(ArrayList<Tournament> previousTournaments) {
+    this.previousTournaments = previousTournaments;
+  }
+
+  
 }
